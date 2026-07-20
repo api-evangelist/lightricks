@@ -1,0 +1,14 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lightricks-ltx-openapi-original.json, openapi/lightricks-ltx-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: API key authentication
+  sources:
+  - openapi/lightricks-ltx-openapi-original.json
+  - openapi/lightricks-ltx-openapi.yml
