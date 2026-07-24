@@ -1,0 +1,136 @@
+openapi: 3.1.0
+info:
+  title: API Reference asyncVideoGeneration upload API
+  version: 1.0.0
+servers:
+- url: https://api.ltx.video
+  description: Production server
+tags:
+- name: upload
+paths:
+  /v1/upload:
+    post:
+      operationId: create-upload
+      summary: Upload file
+      description: 'Generate a signed URL for uploading media files to use as input for video generation.
+
+
+        Returns a pre-signed URL that can be used to upload files directly to cloud storage.
+
+        Use the returned `storage_uri` in subsequent video generation requests (e.g., `image_uri` or `video_uri` parameters).
+
+        The URL expires after 1 hour.
+
+        '
+      tags:
+      - upload
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key authentication
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Upload URL generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service temporarily unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ErrorError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error type for programmatic handling
+        message:
+          type: string
+          description: Human-readable error description
+      required:
+      - type
+      - message
+      title: ErrorError
+    Error:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ErrorType'
+          description: Response type indicator
+        error:
+          $ref: '#/components/schemas/ErrorError'
+      required:
+      - type
+      - error
+      title: Error
+    ErrorType:
+      type: string
+      enum:
+      - error
+      description: Response type indicator
+      title: ErrorType
+    UploadResponse:
+      type: object
+      properties:
+        upload_url:
+          type: string
+          description: 'Pre-signed URL for uploading the file. Use PUT request to upload your file to this URL.
+
+            The URL includes all necessary authentication and expires after 1 hour.
+
+            '
+        storage_uri:
+          type: string
+          description: 'Storage URI that can be used to reference the uploaded file in subsequent API requests.
+
+            Use this value in image_uri or video_uri parameters.
+
+            The uploaded file will be available for 24 hours.
+
+            '
+        expires_at:
+          type: string
+          format: date-time
+          description: 'ISO 8601 timestamp indicating when the signed URL expires (1 hour from creation).
+
+            '
+        required_headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'Headers that must be included in the upload request to cloud storage.
+
+            These headers enforce upload constraints like file size limits.
+
+            '
+      required:
+      - upload_url
+      - storage_uri
+      - expires_at
+      - required_headers
+      title: UploadResponse
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: API key authentication

@@ -1,0 +1,842 @@
+openapi: 3.1.0
+info:
+  title: API Reference asyncVideoGeneration videoGeneration API
+  version: 1.0.0
+servers:
+- url: https://api.ltx.video
+  description: Production server
+tags:
+- name: videoGeneration
+paths:
+  /v1/text-to-video:
+    post:
+      operationId: text-to-video
+      summary: Generate video from text
+      description: 'Generate a video from a text prompt. Describe the scene, camera motion, and mood — the model returns a video with matching audio.
+
+
+        Returns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/text-to-video](/api-documentation/api-reference/async-video-generation/submit-text-to-video).
+
+
+        Billed per second of generated video. See [Pricing](/pricing).
+
+        '
+      tags:
+      - videoGeneration
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key authentication
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Video generated successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: The request is invalid or malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Content rejected by safety filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service temporarily unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Request timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextToVideoRequest'
+  /v1/image-to-video:
+    post:
+      operationId: image-to-video
+      summary: Generate video from image
+      description: 'Animate a still image with realistic motion, depth, and audio. Provide a reference image plus a prompt describing the desired motion. The output preserves the visual identity of the source image.
+
+
+        Returns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/image-to-video](/api-documentation/api-reference/async-video-generation/submit-image-to-video).
+
+
+        Billed per second of generated video. See [Pricing](/pricing).
+
+        '
+      tags:
+      - videoGeneration
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key authentication
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Video generated successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: The request is invalid or malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Content rejected by safety filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service temporarily unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Request timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageToVideoRequest'
+  /v1/audio-to-video:
+    post:
+      operationId: audio-to-video
+      summary: Generate video from audio
+      description: 'Generate a video driven by an audio track. Supply dialogue, music, or ambient sound and the model produces visuals synchronized to the audio. Optionally condition on a reference image for visual direction. Output video is 25 fps.
+
+
+        Returns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/audio-to-video](/api-documentation/api-reference/async-video-generation/submit-audio-to-video).
+
+
+        Billed per second of input audio. See [Pricing](/pricing).
+
+        '
+      tags:
+      - videoGeneration
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key authentication
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Video generated successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: The request is invalid or malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Content rejected by safety filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service temporarily unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Request timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudioToVideoRequest'
+  /v1/retake:
+    post:
+      operationId: retake
+      summary: Retake video section
+      description: 'Re-generate a section of an existing video by replacing either its audio, its video, or both. Iterate on part of a generation without starting over — the rest of the video is preserved. The edited section is defined by the `start_time` and `duration` parameters.
+
+
+        Returns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/retake](/api-documentation/api-reference/async-video-generation/submit-retake).
+
+
+        Billed per second of the input video. See [Pricing](/pricing).
+
+        '
+      tags:
+      - videoGeneration
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key authentication
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Video edited successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: The request is invalid or malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Content rejected by safety filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service temporarily unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Request timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditVideoRequest'
+  /v1/extend:
+    post:
+      operationId: extend
+      summary: Extend video duration
+      description: 'Extend a video by generating additional frames at the beginning or end. The model uses context frames from the input to produce a seamless continuation with consistent motion and audio.
+
+        > Audio is generated for the extended portion if the input video has audio.
+
+
+        Returns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/extend](/api-documentation/api-reference/async-video-generation/submit-extend).
+
+
+        Billed per second, based on the extended portion plus the context frames used from the input video. See [Pricing](/pricing).
+
+        '
+      tags:
+      - videoGeneration
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key authentication
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Video extended successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: The request is invalid or malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Content rejected by safety filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: An unexpected error occurred
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service temporarily unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '504':
+          description: Request timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendVideoRequest'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ErrorType'
+          description: Response type indicator
+        error:
+          $ref: '#/components/schemas/ErrorError'
+      required:
+      - type
+      - error
+      title: Error
+    AudioToVideoRequest:
+      type: object
+      properties:
+        audio_uri:
+          type: string
+          description: 'Audio file to be used as the soundtrack for the video. Duration must be between 2 and 20 seconds.
+
+            See [Input Formats](/input-formats#audio-input) for supported formats and size limits.
+
+            '
+        image_uri:
+          type: string
+          description: Input image to be used as the first frame of the video. Required if prompt is not provided. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
+        prompt:
+          type: string
+          description: Text description of how the video should be generated. Required if image_uri is not provided. Can be empty string when image_uri is provided. If image_uri is provided, this describes how the image should be animated. If no image_uri is provided, this describes the video content.
+        resolution:
+          $ref: '#/components/schemas/AudioToVideoRequestResolution'
+          description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input image orientation — portrait images produce 1080x1920 video, landscape images produce 1920x1080 video. If no image is provided, defaults to 1920x1080.
+
+            '
+        guidance_scale:
+          type: number
+          format: double
+          description: Optional guidance scale (also known as CFG) for video generation. Higher values make the output more closely follow the prompt but may reduce quality. Defaults to 5 for text-to-video, or 9 when providing an image.
+        model:
+          $ref: '#/components/schemas/AudioToVideoRequestModel'
+          description: 'Model to use for video generation.
+
+
+            > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+            '
+      required:
+      - audio_uri
+      title: AudioToVideoRequest
+    TextToVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-fast
+      - ltx-2-pro
+      - ltx-2-3-fast
+      - ltx-2-3-pro
+      description: 'Model to use for generation. See [Supported Models](/models) for details.
+
+
+        > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: TextToVideoRequestModel
+    AudioToVideoRequestResolution:
+      type: string
+      enum:
+      - 1920x1080
+      - 1080x1920
+      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input image orientation — portrait images produce 1080x1920 video, landscape images produce 1920x1080 video. If no image is provided, defaults to 1920x1080.
+
+        '
+      title: AudioToVideoRequestResolution
+    TextToVideoRequest:
+      type: object
+      properties:
+        prompt:
+          type: string
+          description: Text prompt describing the desired video content
+        model:
+          $ref: '#/components/schemas/TextToVideoRequestModel'
+          description: 'Model to use for generation. See [Supported Models](/models) for details.
+
+
+            > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+            '
+        duration:
+          type: integer
+          description: Video duration in seconds. See [Supported Models](/models) for available durations per model.
+        fps:
+          type: integer
+          default: 24
+          description: Frame rate in frames per second. See [Supported Models](/models) for available FPS per model and resolution.
+        resolution:
+          type: string
+          description: Output video resolution. See [Supported Models](/models) for available resolutions per model.
+        generate_audio:
+          type: boolean
+          default: true
+          description: Generate audio for the video. When true, the generated video will include AI-generated audio matching the scene. When false, only silent video is generated.
+        camera_motion:
+          $ref: '#/components/schemas/TextToVideoRequestCameraMotion'
+          description: Apply camera motion effects to the generated video.
+      required:
+      - prompt
+      - model
+      - duration
+      - resolution
+      title: TextToVideoRequest
+    ErrorError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error type for programmatic handling
+        message:
+          type: string
+          description: Human-readable error description
+      required:
+      - type
+      - message
+      title: ErrorError
+    EditVideoRequest:
+      type: object
+      properties:
+        video_uri:
+          type: string
+          description: 'Input video for editing. See [Input Formats](/input-formats#video-input) for supported formats and codecs.
+
+
+            - Maximum resolution: 3840x2160 (4K)
+
+            - Minimum frame count: 73 (around 3 seconds at 24fps)
+
+            '
+        prompt:
+          type: string
+          description: 'Describing what needs to happen in the generated video in a section
+
+            defined by `start_time` and `duration`.
+
+            '
+        start_time:
+          type: number
+          format: double
+          description: 'Start time in seconds, defines the section to be edited in the input video.
+
+
+            The section defined by `start_time` and `duration` should be within the duration of the input video.
+
+            If the section extends beyond the duration of the video, it will be clamped to the video duration.
+
+            '
+        duration:
+          type: number
+          format: double
+          description: 'Duration in seconds, defines the duration of the section to be edited
+
+            in the input video. Must be at least 2 seconds.
+
+
+            The section defined by `start_time` and `duration` should be within the duration of the input video.
+
+            If the section extends beyond the duration of the video, it will be clamped to the video duration.
+
+            '
+        mode:
+          $ref: '#/components/schemas/EditVideoRequestMode'
+          description: 'Can be any of the following:
+
+            - `replace_audio` - Replace only the audio track
+
+            - `replace_video` - Replace only the video track
+
+            - `replace_audio_and_video` - Replace both audio and video tracks
+
+
+            The default value is `replace_audio_and_video` if not specified.
+
+            '
+        resolution:
+          $ref: '#/components/schemas/EditVideoRequestResolution'
+          description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input video orientation — portrait videos produce 1080x1920 output, landscape videos produce 1920x1080 output.
+
+            '
+        model:
+          $ref: '#/components/schemas/EditVideoRequestModel'
+          description: 'Model to use for video generation.
+
+
+            > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+            '
+      required:
+      - video_uri
+      - start_time
+      - duration
+      title: EditVideoRequest
+    ImageToVideoRequest:
+      type: object
+      properties:
+        image_uri:
+          type: string
+          description: Image to be used as the first frame of the video. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
+        prompt:
+          type: string
+          description: Text description of how the image should be animated, can relate to the details in the image
+        model:
+          $ref: '#/components/schemas/ImageToVideoRequestModel'
+          description: 'Model to use for generation. See [Supported Models](/models) for details.
+
+
+            > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+            '
+        duration:
+          type: integer
+          description: Video duration in seconds. See [Supported Models](/models) for available durations per model.
+        fps:
+          type: integer
+          default: 24
+          description: Frame rate in frames per second. See [Supported Models](/models) for available FPS per model and resolution.
+        resolution:
+          type: string
+          description: Output video resolution. See [Supported Models](/models) for available resolutions per model.
+        generate_audio:
+          type: boolean
+          default: true
+          description: Generate audio for the video. When true, the generated video will include AI-generated audio matching the scene. When false, only silent video is generated.
+        last_frame_uri:
+          type: string
+          description: 'Image to be used as the last frame of the video. When provided, the video will interpolate between the first frame (image_uri) and this last frame. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
+
+
+            > Note: Only supported by `ltx-2-3` models (`ltx-2-3-fast`, `ltx-2-3-pro`).
+
+            '
+        camera_motion:
+          $ref: '#/components/schemas/ImageToVideoRequestCameraMotion'
+          description: Apply camera motion effects to the generated video.
+      required:
+      - image_uri
+      - prompt
+      - model
+      - duration
+      - resolution
+      title: ImageToVideoRequest
+    ExtendVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-pro
+      - ltx-2-3-pro
+      default: ltx-2-3-pro
+      description: 'Model to use for video generation.
+
+
+        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: ExtendVideoRequestModel
+    EditVideoRequestResolution:
+      type: string
+      enum:
+      - 1920x1080
+      - 1080x1920
+      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input video orientation — portrait videos produce 1080x1920 output, landscape videos produce 1920x1080 output.
+
+        '
+      title: EditVideoRequestResolution
+    ExtendVideoRequest:
+      type: object
+      properties:
+        video_uri:
+          type: string
+          description: 'Input video for extending. See [Input Formats](/input-formats#video-input) for supported formats and codecs.
+
+
+            - Supported aspect ratios: 16:9 and 9:16
+
+            - Maximum resolution: 3840x2160 (4K)
+
+            - Minimum frame count: 73 (around 3 seconds at 24fps)
+
+
+            The output video preserves the input video''s resolution.
+
+            '
+        prompt:
+          type: string
+          description: 'Description of what should happen in the extended portion of the video.
+
+            '
+        duration:
+          type: number
+          format: double
+          description: 'Duration in seconds to extend the video. Minimum 2 seconds, maximum 20 seconds (480 frames at 24fps).
+
+            '
+        mode:
+          $ref: '#/components/schemas/ExtendVideoRequestMode'
+          description: 'Where to extend the video:
+
+            - `end` (default): Extends the video at the end.
+
+            - `start`: Extends the video at the beginning.
+
+            '
+        model:
+          $ref: '#/components/schemas/ExtendVideoRequestModel'
+          description: 'Model to use for video generation.
+
+
+            > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+            '
+        context:
+          type: number
+          format: double
+          description: '**Advanced parameter:** Number of seconds from the input video to use as context for the extension (maximum 20 seconds).
+
+
+            The model uses context frames from the input video to generate a more coherent extension.
+
+            The sum of `context` + `duration` (converted to frames using the input video''s FPS) cannot exceed 505 frames (~21 seconds at 24fps). For higher-FPS inputs, the maximum total duration in seconds will be proportionally lower; for lower-FPS inputs, it will be proportionally higher.
+
+
+            If not provided, defaults to maximize available context within the 505 frame limit while respecting the 20-second cap.
+
+            '
+      required:
+      - video_uri
+      - duration
+      title: ExtendVideoRequest
+    ImageToVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-fast
+      - ltx-2-pro
+      - ltx-2-3-fast
+      - ltx-2-3-pro
+      description: 'Model to use for generation. See [Supported Models](/models) for details.
+
+
+        > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: ImageToVideoRequestModel
+    TextToVideoRequestCameraMotion:
+      type: string
+      enum:
+      - dolly_in
+      - dolly_out
+      - dolly_left
+      - dolly_right
+      - jib_up
+      - jib_down
+      - static
+      - focus_shift
+      description: Apply camera motion effects to the generated video.
+      title: TextToVideoRequestCameraMotion
+    ErrorType:
+      type: string
+      enum:
+      - error
+      description: Response type indicator
+      title: ErrorType
+    AudioToVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-pro
+      - ltx-2-3-pro
+      default: ltx-2-3-pro
+      description: 'Model to use for video generation.
+
+
+        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: AudioToVideoRequestModel
+    ImageToVideoRequestCameraMotion:
+      type: string
+      enum:
+      - dolly_in
+      - dolly_out
+      - dolly_left
+      - dolly_right
+      - jib_up
+      - jib_down
+      - static
+      - focus_shift
+      description: Apply camera motion effects to the generated video.
+      title: ImageToVideoRequestCameraMotion
+    ExtendVideoRequestMode:
+      type: string
+      enum:
+      - start
+      - end
+      default: end
+      description: 'Where to extend the video:
+
+        - `end` (default): Extends the video at the end.
+
+        - `start`: Extends the video at the beginning.
+
+        '
+      title: ExtendVideoRequestMode
+    EditVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-pro
+      - ltx-2-3-pro
+      default: ltx-2-3-pro
+      description: 'Model to use for video generation.
+
+
+        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: EditVideoRequestModel
+    EditVideoRequestMode:
+      type: string
+      enum:
+      - replace_audio
+      - replace_video
+      - replace_audio_and_video
+      default: replace_audio_and_video
+      description: 'Can be any of the following:
+
+        - `replace_audio` - Replace only the audio track
+
+        - `replace_video` - Replace only the video track
+
+        - `replace_audio_and_video` - Replace both audio and video tracks
+
+
+        The default value is `replace_audio_and_video` if not specified.
+
+        '
+      title: EditVideoRequestMode
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: API key authentication
