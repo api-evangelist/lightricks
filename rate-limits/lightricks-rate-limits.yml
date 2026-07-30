@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.ltx.io/rate-limits
+docs: https://docs.ltx.io/rate-limits
+api: LTX API
+rate_limits:
+- name: Concurrent generations
+  type: concurrency
+  limit: 2
+  unit: simultaneous video generations
+  scope: account
+  default: true
+  error_type: concurrency_limit_error
+  status: 429
+  increase: https://ltx.io/forms/ltx-contact-sales
+- name: Request rate
+  type: requests-per-window
+  limit: null
+  unit: requests per time window
+  scope: api-key
+  error_type: rate_limit_error
+  status: 429
+  notes: Documented as plan-dependent; no numeric value is published.
+  increase: https://ltx.io/forms/ltx-contact-sales
+signaling:
+  status: 429
+  retry_after_header: true
+  limit_headers: []
+  notes: A Retry-After header indicating seconds to wait accompanies 429 responses. No
+    X-RateLimit-* quota headers are documented.
+error_envelope: '{"type": "error", "error": {"type": "concurrency_limit_error", "message": "Too many
+  concurrent requests. Please try again later."}}'

@@ -1,0 +1,118 @@
+generated: '2026-07-19'
+method: searched
+source: https://ltx.io/changelog
+docs: https://ltx.io/changelog
+title: LTX Models Changelog
+scope: model
+scope_notes: >-
+  Lightricks publishes a dated changelog for the LTX model generations and the ComfyUI plugin, not for
+  the REST API surface itself. API-surface change is announced separately as dated deprecation notices
+  in the docs (see lifecycle/lightricks-lifecycle.yml). Detailed per-release notes live on GitHub.
+versioning_scheme: model-generation
+current_version: LTX-2.3
+tracks:
+- name: LTX Model
+  entries:
+  - version: LTX-2.3
+    date: '2026-03-05'
+    title: LTX-2.3 22B Model, Native Audio, Portrait Video, Desktop Editor
+    breaking: false
+    additions:
+    - 22-billion parameter architecture, upgraded from 19B
+    - Synchronized audio and video generated in a single forward pass
+    - Up to 4K resolution at 50 FPS, up to 20 seconds per clip
+    - Native portrait (9:16) vertical video
+    - 24 and 48 FPS output options; last-frame interpolation
+    - Spatial and temporal upscalers; desktop video editor for local generation
+    - 'LoRA adapters: Motion-Track-Control, Union-Control (depth/pose/canny), Detailer'
+    highlights:
+    - Redesigned high-fidelity VAE; reduced texture drift over longer sequences
+    - Upgraded HiFi-GAN vocoder, stereo audio at 24 kHz
+    - 4x larger text connector for better prompt adherence
+    - Apache 2.0 license, fully open weights, commercial use allowed
+  - version: LTX-2
+    date: '2026-01-06'
+    title: LTX-2 open-source release — full weights and codebase
+    breaking: false
+    additions:
+    - Full open-weights release on Hugging Face and GitHub
+    - Fast / Pro / Ultra model variants
+    - Text-to-video, image-to-video, video-to-video, audio-to-video
+    - Multi-input conditioning (text, image, video, audio, depth maps, reference video)
+    - Keyframe interpolation pipeline; LoRA fine-tuning in under an hour
+    highlights:
+    - First production-ready audio-video generation model with truly open weights
+    - Technical report published (arXiv 2601.03233)
+    - HD through 4K output, up to 10 seconds at launch
+  - version: LTX-2
+    date: '2025-10-23'
+    title: First unified audio-video foundation model
+    breaking: false
+    highlights:
+    - First DiT-based audio-video foundation model with synchronized generation
+    - Native 4K fidelity at up to 50 FPS
+    - Multi-keyframe conditioning; up to 50% lower compute cost vs competing models
+  - version: v0.9.8
+    date: '2025-07-16'
+    title: 60-second generation, IC-LoRA Detailer, distilled 2B model
+    breaking: false
+    additions:
+    - Extended generation up to 60 seconds
+    - New 2B distilled model; FP8 quantized weight options
+    - Control LoRA support for depth, pose and canny
+  - version: v0.9.7
+    date: '2025-05-14'
+    title: Distilled 13B — HD video in 10 seconds
+    breaking: false
+    highlights:
+    - HD generation in ~10 seconds on H100; no classifier-free guidance required
+    - LoRA variant runs in 1GB VRAM
+  - version: v0.9.7
+    date: '2025-05-05'
+    title: 13B model, multi-scale rendering pipeline
+    breaking: false
+  - version: v0.9.6
+    date: '2025-04-15'
+    title: Resolution expansion, 15x faster distilled variant
+    breaking: false
+  - version: v0.9.5
+    date: '2025-03-05'
+    title: Commercial license, keyframes, video extension
+    breaking: false
+    highlights:
+    - Commercial use permitted under OpenRail-M
+    - Keyframe conditioning and video extension added; LTX Studio launched
+  - version: v0.9.1
+    date: '2024-12-20'
+    title: STG / PAG support, macOS, research paper
+    breaking: false
+  - version: v0.9.0
+    date: '2024-11-21'
+    title: Initial release
+    breaking: false
+    highlights:
+    - Text-to-video and image-to-video, 5-second clips at 768x512
+    - ComfyUI integration, Hugging Face model repository, native Python inference
+- name: ComfyUI Plugin
+  entries:
+  - version: LTX-2.3
+    date: '2026-03-05'
+    title: LTX-2.3 day-0 support
+    breaking: false
+    requirements: ComfyUI 0.16.1+
+  - version: LTX-2
+    date: '2026-01-06'
+    title: Performance optimizations and NVIDIA partnership
+    breaking: false
+    highlights:
+    - Native PyTorch-CUDA optimizations for RTX GPUs, up to 3x faster
+    - Up to 60% VRAM reduction
+api_change_announcements:
+- date: '2026-07-15'
+  kind: deprecation
+  summary: LTX-2 (ltx-2-fast, ltx-2-pro) deprecated; requests transparently served by LTX-2.3 at LTX-2 prices.
+  url: https://docs.ltx.io/ltx-2-deprecation
+- date: '2026-08-15'
+  kind: removal
+  summary: LTX-2 removed; requests specifying ltx-2-fast or ltx-2-pro return an error.
+  url: https://docs.ltx.io/ltx-2-deprecation

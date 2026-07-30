@@ -1,0 +1,90 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.ltx.io/authentication, https://docs.ltx.io/async-jobs, https://docs.ltx.io/errors,
+  https://docs.ltx.io/rate-limits, https://docs.ltx.io/debugging, openapi/lightricks-ltx-openapi.yml
+api: LTX API
+base_url: https://api.ltx.video
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: 'Bearer YOUR_API_KEY'
+  issued_at: https://console.ltx.io/
+  env_var_convention: LTXV_API_KEY
+  oauth: false
+  docs: https://docs.ltx.io/authentication
+  artifact: authentication/lightricks-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    LTX documents no idempotency key. Generation is inherently non-idempotent (each submit bills and
+    produces a new job id). Callers must dedupe client-side by correlating their own request key with
+    the returned job `id` before retrying a submit.
+async_jobs:
+  supported: true
+  style: submit-and-poll
+  submit: POST /v2/{endpoint}
+  submit_status: 202
+  submit_response_fields: [id, created_at]
+  poll: GET /v2/{endpoint}/{id}
+  poll_interval_seconds: 5
+  status_values: [pending, processing, completed, failed]
+  terminal_states: [completed, failed]
+  result_field: result
+  result_shape: map of output label to signed URL (e.g. video_url, exr_frames_url)
+  retention_hours: 24
+  retention_notes: After 24 hours in a terminal state, GET /v2/{endpoint}/{id} returns 404.
+  endpoints: [text-to-video, image-to-video, audio-to-video, retake, extend, video-to-video-hdr,
+    video-to-video-reframe]
+  docs: https://docs.ltx.io/async-jobs
+sync_mode:
+  supported: true
+  version: v1
+  notes: v1 endpoints return the rendered media directly as application/octet-stream. Long renders can
+    hit connection timeouts; v2 async is the documented recommendation for production.
+pagination:
+  supported: false
+  notes: No list/collection endpoints — the API is job-oriented, not resource-collection-oriented.
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  response_header: x-request-id
+  description: Unique identifier for each API request. Include it when contacting support.
+  recommendation: Log request IDs in production deployments.
+  docs: https://docs.ltx.io/debugging
+versioning:
+  scheme: uri-path
+  versions: [v1, v2]
+  current: v2
+  notes: v1 is the synchronous surface and v2 the asynchronous job surface — they are parallel modes,
+    not a strict version succession. Model versioning is separate and carried in the `model` request
+    field (ltx-2-3-fast / ltx-2-3-pro).
+  artifact: lifecycle/lightricks-lifecycle.yml
+error_envelope:
+  format: custom
+  shape: '{"type": "error", "error": {"type": "<error_type>", "message": "<human readable>"}}'
+  rfc9457: false
+  discriminator: error.type
+  artifacts: [errors/lightricks-error-codes.yml, errors/lightricks-problem-types.yml]
+  docs: https://docs.ltx.io/errors
+rate_limit_signaling:
+  status: 429
+  retry_after_header: true
+  limit_headers_documented: false
+  limit_types: [concurrency_limit_error, rate_limit_error]
+  default_concurrency: 2
+  artifact: rate-limits/lightricks-rate-limits.yml
+  docs: https://docs.ltx.io/rate-limits
+file_inputs:
+  upload_endpoint: POST /v1/upload
+  flow: >-
+    create-upload returns a pre-signed upload_url (PUT, expires in 1 hour) plus a storage_uri to
+    reference in image_uri / video_uri parameters. Uploaded files are available for 24 hours.
+  public_url_alternative: true
+  docs: https://docs.ltx.io/input-formats
+billing:
+  model: per-second-of-media
+  credits: true
+  auto_top_up: https://docs.ltx.io/auto-top-up
+  docs: https://docs.ltx.io/pricing

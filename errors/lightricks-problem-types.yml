@@ -1,0 +1,155 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lightricks-ltx-openapi-original.json
+docs: https://docs.ltx.io/errors
+format: custom
+notes: LTX does not use RFC 9457 application/problem+json. Every 4xx/5xx returns application/json with
+  the envelope {"type":"error","error":{"type":"...","message":"..."}}. The machine-readable discriminator
+  is error.type — see errors/lightricks-error-codes.yml for the full registry of error type strings, retryability
+  and remediation.
+envelope_schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+problems:
+- status: 400
+  title: The request is invalid or malformed
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#extend
+  - openapi/lightricks-ltx-openapi.yml#image-to-video
+  - openapi/lightricks-ltx-openapi.yml#retake
+  - openapi/lightricks-ltx-openapi.yml#submit-audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-extend
+  - openapi/lightricks-ltx-openapi.yml#submit-image-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-retake
+  - openapi/lightricks-ltx-openapi.yml#submit-text-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-hdr
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-reframe
+  - openapi/lightricks-ltx-openapi.yml#text-to-video
+- status: 401
+  title: Authentication failed
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#create-upload
+  - openapi/lightricks-ltx-openapi.yml#extend
+  - openapi/lightricks-ltx-openapi.yml#get-job-status
+  - openapi/lightricks-ltx-openapi.yml#image-to-video
+  - openapi/lightricks-ltx-openapi.yml#retake
+  - openapi/lightricks-ltx-openapi.yml#submit-audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-extend
+  - openapi/lightricks-ltx-openapi.yml#submit-image-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-retake
+  - openapi/lightricks-ltx-openapi.yml#submit-text-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-hdr
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-reframe
+  - openapi/lightricks-ltx-openapi.yml#text-to-video
+- status: 402
+  title: Insufficient credits
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#submit-audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-extend
+  - openapi/lightricks-ltx-openapi.yml#submit-image-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-retake
+  - openapi/lightricks-ltx-openapi.yml#submit-text-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-hdr
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-reframe
+- status: 404
+  title: Resource not found
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#get-job-status
+- status: 422
+  title: Content rejected by safety filters
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#extend
+  - openapi/lightricks-ltx-openapi.yml#image-to-video
+  - openapi/lightricks-ltx-openapi.yml#retake
+  - openapi/lightricks-ltx-openapi.yml#submit-audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-extend
+  - openapi/lightricks-ltx-openapi.yml#submit-image-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-retake
+  - openapi/lightricks-ltx-openapi.yml#submit-text-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-hdr
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-reframe
+  - openapi/lightricks-ltx-openapi.yml#text-to-video
+- status: 429
+  title: Rate limit exceeded
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#extend
+  - openapi/lightricks-ltx-openapi.yml#image-to-video
+  - openapi/lightricks-ltx-openapi.yml#retake
+  - openapi/lightricks-ltx-openapi.yml#submit-audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-extend
+  - openapi/lightricks-ltx-openapi.yml#submit-image-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-retake
+  - openapi/lightricks-ltx-openapi.yml#submit-text-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-hdr
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-reframe
+  - openapi/lightricks-ltx-openapi.yml#text-to-video
+- status: 500
+  title: An unexpected error occurred
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#create-upload
+  - openapi/lightricks-ltx-openapi.yml#extend
+  - openapi/lightricks-ltx-openapi.yml#get-job-status
+  - openapi/lightricks-ltx-openapi.yml#image-to-video
+  - openapi/lightricks-ltx-openapi.yml#retake
+  - openapi/lightricks-ltx-openapi.yml#submit-audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-extend
+  - openapi/lightricks-ltx-openapi.yml#submit-image-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-retake
+  - openapi/lightricks-ltx-openapi.yml#submit-text-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-hdr
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-reframe
+  - openapi/lightricks-ltx-openapi.yml#text-to-video
+- status: 503
+  title: Service temporarily unavailable
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#create-upload
+  - openapi/lightricks-ltx-openapi.yml#extend
+  - openapi/lightricks-ltx-openapi.yml#image-to-video
+  - openapi/lightricks-ltx-openapi.yml#retake
+  - openapi/lightricks-ltx-openapi.yml#submit-audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-extend
+  - openapi/lightricks-ltx-openapi.yml#submit-image-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-retake
+  - openapi/lightricks-ltx-openapi.yml#submit-text-to-video
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-hdr
+  - openapi/lightricks-ltx-openapi.yml#submit-video-to-video-reframe
+  - openapi/lightricks-ltx-openapi.yml#text-to-video
+- status: 504
+  title: Request timeout
+  media_types:
+  - application/json
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  source_operations:
+  - openapi/lightricks-ltx-openapi.yml#audio-to-video
+  - openapi/lightricks-ltx-openapi.yml#extend
+  - openapi/lightricks-ltx-openapi.yml#image-to-video
+  - openapi/lightricks-ltx-openapi.yml#retake
+  - openapi/lightricks-ltx-openapi.yml#text-to-video

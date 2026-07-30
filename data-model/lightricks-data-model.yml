@@ -1,0 +1,85 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lightricks-ltx-openapi-original.json
+docs: https://docs.ltx.io/async-jobs
+notes: >-
+  The LTX API is job-oriented rather than resource-collection-oriented. There are no CRUD entities,
+  no list endpoints and no cross-entity id references; the only persistent objects are the async Job
+  and the Upload, linked by the storage_uri a request carries into a generation.
+entities:
+- name: Job
+  description: An asynchronous generation job created by a POST to a /v2/{endpoint} operation.
+  schemas:
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/V2JobCreatedResponse
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/V2JobStatusResponse
+  identifier:
+    field: id
+    format: uuid
+    example_shape: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+  fields:
+  - {name: id, type: string, description: Unique job identifier used for polling}
+  - {name: status, type: enum, values: [pending, processing, completed, failed]}
+  - {name: created_at, type: date-time}
+  - {name: completed_at, type: date-time, present_when: 'status in (completed, failed)'}
+  - {name: result, type: object, present_when: 'status == completed'}
+  - {name: error, type: object, present_when: 'status == failed'}
+  lifecycle: pending -> processing -> completed | failed (terminal)
+  retention_hours: 24
+  scoped_by:
+    field: endpoint
+    values: [text-to-video, image-to-video, audio-to-video, retake, extend, video-to-video-hdr,
+      video-to-video-reframe]
+    notes: A job id is only addressable under the endpoint it was created on — GET /v2/{endpoint}/{id}.
+  relationships:
+  - {kind: has_one, target: JobResult, via: result}
+  - {kind: has_one, target: JobError, via: error}
+- name: JobResult
+  description: Map of output label to signed download URL on a completed job.
+  schemas: [openapi/lightricks-ltx-openapi.yml#/components/schemas/V2JobResult]
+  shape: additionalProperties string/uri
+  known_keys:
+  - {key: video_url, produced_by: most video endpoints}
+  - {key: exr_frames_url, produced_by: video-to-video-hdr}
+  relationships:
+  - {kind: belongs_to, target: Job, via: result}
+- name: JobError
+  description: Failure detail on a failed job; same {type, message} shape as HTTP errors.
+  schemas: [openapi/lightricks-ltx-openapi.yml#/components/schemas/V2JobError]
+  relationships:
+  - {kind: belongs_to, target: Job, via: error}
+- name: Upload
+  description: A pre-signed upload slot for supplying image/video/audio input to a generation.
+  schemas: [openapi/lightricks-ltx-openapi.yml#/components/schemas/UploadResponse]
+  created_by: openapi/lightricks-ltx-openapi.yml#create-upload
+  fields:
+  - {name: upload_url, type: string, description: Pre-signed PUT URL, expires in 1 hour}
+  - {name: storage_uri, type: string, description: Reference passed as image_uri / video_uri on a generation request}
+  - {name: expires_at, type: date-time}
+  - {name: required_headers, type: object}
+  retention_hours: 24
+  relationships:
+  - {kind: has_many, target: GenerationRequest, via: storage_uri}
+- name: GenerationRequest
+  description: The request body of a generation operation; not persisted or addressable on its own.
+  schemas:
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/TextToVideoRequest
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/ImageToVideoRequest
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/AudioToVideoRequest
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/EditVideoRequest
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/ExtendVideoRequest
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/VideoToVideoHdrRequest
+  - openapi/lightricks-ltx-openapi.yml#/components/schemas/VideoToVideoReframeRequest
+  relationships:
+  - {kind: belongs_to, target: Upload, via: image_uri}
+  - {kind: belongs_to, target: Upload, via: video_uri}
+  - {kind: has_one, target: Job, via: 'POST /v2/{endpoint} response id'}
+- name: Model
+  description: Enumerated generation model selected per request; a value, not an addressable resource.
+  values: [ltx-2-3-fast, ltx-2-3-pro, ltx-2-fast, ltx-2-pro]
+  deprecated_values: [ltx-2-fast, ltx-2-pro]
+  docs: https://docs.ltx.io/models
+relationship_summary:
+  entities: 6
+  addressable_resources: [Job, Upload]
+  id_reference_fields: [id, storage_uri, image_uri, video_uri]
+  foreign_key_graph_depth: 2

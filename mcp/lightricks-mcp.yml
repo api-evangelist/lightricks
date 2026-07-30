@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: searched
+status: published
+source: https://docs.ltx.io/llms.txt
+server:
+  name: ltx-docs
+  transport: http
+  url: https://docs.ltx.io/_mcp/server
+  protocol_version: '2025-06-18'
+  implementation: fern-docs-mcp-server 1.0.0
+  advertised_at: https://docs.ltx.io/llms.txt
+  scope: documentation
+  notes: >-
+    Lightricks advertises this remote MCP server in its llms.txt and on every docs page for AI client
+    integration (Claude Code, Cursor). It is a documentation-search server over docs.ltx.io — it does
+    not expose the LTX video-generation operations as MCP tools. Verified live by JSON-RPC initialize
+    and tools/list on 2026-07-19.
+tools:
+- name: searchDocs
+  title: Search docs.ltx.io Docs
+  description: Search the documentation at https://docs.ltx.io. Returns relevant doc passages with source URLs.
+  read_only: true
+  inputs:
+  - name: query
+    type: string
+    required: true
+    description: The search query to run against the docs
+capabilities:
+  tools: true
+  resources: false
+  prompts: false
+verified: '2026-07-19'

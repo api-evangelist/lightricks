@@ -1,0 +1,70 @@
+generated: '2026-07-19'
+method: searched
+source: https://pypi.org/project/ltx-video/, https://github.com/Lightricks
+notes: >-
+  Lightricks publishes no REST client SDK for the LTX API — the docs show raw curl / requests /
+  fetch examples only. The first-party packages below are the open-weight LTX model runtimes and
+  tooling published by the Lightricks GitHub organization. Registries probed with no first-party
+  hit: npm, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist, crates.io.
+packages:
+- language: python
+  registry: pypi
+  name: ltx-video
+  version: 0.1.2
+  url: https://pypi.org/project/ltx-video/
+  install: pip install ltx-video
+  official: true
+  kind: model-inference
+  source_repo: https://github.com/Lightricks/LTX-Video
+  license: Apache-2.0
+  evidence: pyproject.toml authors LTX-Video Team <ltx-video@lightricks.com>
+- language: python
+  registry: pypi
+  name: ltx-core
+  url: https://pypi.org/project/ltx-core/
+  install: pip install ltx-core
+  official: true
+  kind: model-inference
+  source_repo: https://github.com/Lightricks/LTX-2
+  evidence: uv workspace member of Lightricks/LTX-2
+- language: python
+  registry: pypi
+  name: ltx-pipelines
+  url: https://pypi.org/project/ltx-pipelines/
+  install: pip install ltx-pipelines
+  official: true
+  kind: model-inference
+  source_repo: https://github.com/Lightricks/LTX-2
+  evidence: uv workspace member of Lightricks/LTX-2
+repositories:
+- name: LTX-2
+  url: https://github.com/Lightricks/LTX-2
+  language: Python
+  description: Official Python inference and LoRA trainer package for the LTX-2 audio-video generative model.
+  official: true
+- name: LTX-Video
+  url: https://github.com/Lightricks/LTX-Video
+  language: Python
+  license: Apache-2.0
+  description: Official repository for LTX-Video.
+  official: true
+- name: ComfyUI-LTXVideo
+  url: https://github.com/Lightricks/ComfyUI-LTXVideo
+  language: Python
+  description: LTX-Video support for ComfyUI.
+  official: true
+- name: LTX-Desktop
+  url: https://github.com/Lightricks/LTX-Desktop
+  language: TypeScript
+  license: Apache-2.0
+  description: Open-source desktop app for generating videos with LTX models.
+  official: true
+registries_probed:
+- {registry: pypi, result: found}
+- {registry: npm, result: none}
+- {registry: maven-central, result: none}
+- {registry: nuget, result: none}
+- {registry: pkg.go.dev, result: none}
+- {registry: rubygems, result: none}
+- {registry: packagist, result: none}
+- {registry: crates.io, result: none}

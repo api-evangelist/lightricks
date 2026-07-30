@@ -1,0 +1,66 @@
+# LTX Documentation
+
+## Instructions for AI Agents
+
+- For clean Markdown of any page, append `.md` to the page URL
+- For section-specific indexes, append `/llms.txt` to any section URL
+- For AI client integration (Claude Code, Cursor, etc.), connect to the MCP server at https://docs.ltx.io/_mcp/server
+
+## Docs
+
+- [API Documentation](https://docs.ltx.io/welcome.md): Power your creativity with LTX — an advanced model built for seamless video generation. Access our AI API to create high-quality visual content at scale.
+- [Quick Start](https://docs.ltx.io/quickstart.md): Learn how to get started with the LTX API in minutes. This quick start guide walks you through setup, authentication, and your first video generation request.
+- [Authentication](https://docs.ltx.io/authentication.md): Understand how to securely authenticate with the LTX API. Follow step-by-step instructions for generating and managing API keys safely.
+- [Supported Models](https://docs.ltx.io/models.md): Explore all supported LTX models for text-to-video, image-to-video, and other generation tasks. Learn their capabilities and best use cases.
+- [LTX-2 Deprecation Notice](https://docs.ltx.io/ltx-2-deprecation.md): LTX-2 (ltx-2-fast, ltx-2-pro) is being retired. Migrate to LTX-2.3 for improved quality, performance, and the latest capabilities.
+- [Input Formats](https://docs.ltx.io/input-formats.md): Complete guide to providing image and video inputs to the LTX API. Learn about upload methods, supported formats, codecs, and constraints.
+- [Prompting Guide](https://docs.ltx.io/api-documentation/implementation-guides/prompting-guide.md)
+- [Async Jobs](https://docs.ltx.io/async-jobs.md): Learn how to use the LTX async (V2) API — submit a generation request, poll for status, and retrieve the output. Covers the full job lifecycle, status values, result format, and retention policy.
+- [Rate Limits](https://docs.ltx.io/rate-limits.md): Review LTX API rate limits and request quotas. Learn how to optimize your usage and avoid throttling with efficient request management.
+- [Error Handling](https://docs.ltx.io/errors.md): Learn how LTX communicates errors and how to handle them gracefully. Includes error codes, response examples, and best practices.
+- [Debugging Requests](https://docs.ltx.io/debugging.md): Find out how to debug and troubleshoot API requests in LTX. Includes tips for logging, inspecting responses, and identifying common issues.
+- [Pricing](https://docs.ltx.io/pricing.md): Detailed pricing for LTX API video generation endpoints. Understand cost per second based on model, resolution, and endpoint type.
+- [Auto Top-Up](https://docs.ltx.io/auto-top-up.md): Configure automatic credit purchases for your organization. Set thresholds and top-up amounts to ensure uninterrupted API usage.
+- [LTX Open Source Documentation](https://docs.ltx.io/open-source-model/getting-started/overview.md)
+- [Quick Start](https://docs.ltx.io/open-source-model/getting-started/quick-start.md)
+- [System Requirements](https://docs.ltx.io/open-source-model/getting-started/system-requirements.md)
+- [Using ComfyUI with LTX](https://docs.ltx.io/open-source-model/integration-tools/comfy-ui.md)
+- [LTX ComfyUI Nodes](https://docs.ltx.io/open-source-model/integration-tools/ltx-comfy-ui-nodes.md): Reference for the ComfyUI nodes LTX ships for LTX workflows — text encoding, guidance, IC-LoRA control, in/outpainting, text-to-audio, and VAE decoding
+- [IC-LoRA Adapters](https://docs.ltx.io/open-source-model/integration-tools/ic-lo-ra-adapters.md)
+- [PyTorch API](https://docs.ltx.io/open-source-model/integration-tools/pytorch-api.md)
+- [Overview](https://docs.ltx.io/open-source-model/ltx-trainer/ltx-training.md)
+- [Quick Start](https://docs.ltx.io/open-source-model/ltx-trainer/quick-start.md)
+- [Training Modes](https://docs.ltx.io/open-source-model/ltx-trainer/training-modes.md)
+- [LTX-2 LoRAs](https://docs.ltx.io/open-source-model/usage-guides/lo-ra.md)
+- [IC-LoRA](https://docs.ltx.io/open-source-model/usage-guides/ic-lo-ra.md)
+- [Text-to-Video Workflow for Beginners](https://docs.ltx.io/open-source-model/usage-guides/text-to-video.md)
+- [Image-to-Video Workflow for Beginners](https://docs.ltx.io/open-source-model/usage-guides/image-to-video.md)
+- [Text-to-Audio Workflow](https://docs.ltx.io/open-source-model/usage-guides/text-to-audio.md)
+- [Video-to-Audio (Foley)](https://docs.ltx.io/open-source-model/usage-guides/video-to-audio-foley.md)
+- [Custom Workflows for More Control](https://docs.ltx.io/open-source-model/advanced-workflows/two-stage-distilled.md)
+- [Inpainting and Outpainting](https://docs.ltx.io/open-source-model/advanced-workflows/in-outpainting.md)
+- [HDR Video (IC-LoRA) Beta](https://docs.ltx.io/open-source-model/advanced-workflows/hdr-video-beta.md)
+- [LipDub (IC-LoRA) Beta](https://docs.ltx.io/open-source-model/advanced-workflows/lip-dub-beta.md)
+
+## API Docs
+
+- API Reference > Video Generation [Generate video from text](https://docs.ltx.io/api-documentation/api-reference/video-generation/text-to-video.md)
+- API Reference > Video Generation [Generate video from image](https://docs.ltx.io/api-documentation/api-reference/video-generation/image-to-video.md)
+- API Reference > Video Generation [Generate video from audio](https://docs.ltx.io/api-documentation/api-reference/video-generation/audio-to-video.md)
+- API Reference > Video Generation [Retake video section](https://docs.ltx.io/api-documentation/api-reference/video-generation/retake.md)
+- API Reference > Video Generation [Extend video duration](https://docs.ltx.io/api-documentation/api-reference/video-generation/extend.md)
+- API Reference > Async Video Generation [Generate video from text](https://docs.ltx.io/api-documentation/api-reference/async-video-generation/submit-text-to-video.md)
+- API Reference > Async Video Generation [Generate video from image](https://docs.ltx.io/api-documentation/api-reference/async-video-generation/submit-image-to-video.md)
+- API Reference > Async Video Generation [Generate video from audio](https://docs.ltx.io/api-documentation/api-reference/async-video-generation/submit-audio-to-video.md)
+- API Reference > Async Video Generation [Retake video section](https://docs.ltx.io/api-documentation/api-reference/async-video-generation/submit-retake.md)
+- API Reference > Async Video Generation [Extend video duration](https://docs.ltx.io/api-documentation/api-reference/async-video-generation/submit-extend.md)
+- API Reference > Async Video Generation [Upscale video to HDR](https://docs.ltx.io/api-documentation/api-reference/async-video-generation/submit-video-to-video-hdr.md)
+- API Reference > Async Video Generation [Reframe a video to a new resolution](https://docs.ltx.io/api-documentation/api-reference/async-video-generation/submit-video-to-video-reframe.md)
+- API Reference > Async Video Generation [Get job status](https://docs.ltx.io/api-documentation/api-reference/async-video-generation/get-job-status.md)
+- API Reference > Upload [Upload file](https://docs.ltx.io/api-documentation/api-reference/upload/create-upload.md)
+
+## OpenAPI Specification
+
+The raw OpenAPI 3.1 specification for this API is available at:
+- [OpenAPI JSON](https://docs.ltx.io/openapi.json)
+- [OpenAPI YAML](https://docs.ltx.io/openapi.yaml)

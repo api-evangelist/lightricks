@@ -1,0 +1,62 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of /.well-known/ on every Lightricks/LTX host
+hosts:
+- host: https://docs.ltx.io
+  documents:
+  - path: /.well-known/api-catalog
+    status: 200
+    file: lightricks-api-catalog.json
+    format: application/linkset+json
+    profile: https://www.rfc-editor.org/info/rfc9727
+    notes: RFC 9727 API catalog linkset pointing at the OpenAPI service description and the HTML service doc.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://api.ltx.video
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://ltx.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://www.lightricks.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+summary:
+  api_catalog: true
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  ai_plugin: false

@@ -1,0 +1,18 @@
+{
+  "provider": "lightricks",
+  "sources": [
+    "lightricks-asyncvideogeneration-api-openapi.yml",
+    "lightricks-upload-api-openapi.yml",
+    "lightricks-videogeneration-api-openapi.yml"
+  ],
+  "outputs": [
+    "lightricks-asyncvideogeneration-api-openapi.yml",
+    "lightricks-upload-api-openapi.yml",
+    "lightricks-videogeneration-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

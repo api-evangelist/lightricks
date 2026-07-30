@@ -1,0 +1,70 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/lightricks-ltx-openapi.yml, https://docs.ltx.io/, https://trust.lightricks.com/
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: openapi/lightricks-ltx-openapi.yml declares openapi 3.1.0 with 14 operations and 33 component schemas
+- id: rfc9727-api-catalog
+  conforms: true
+  evidence: https://docs.ltx.io/.well-known/api-catalog returns application/linkset+json with profile
+    https://www.rfc-editor.org/info/rfc9727
+- id: llmstxt
+  conforms: true
+  evidence: https://docs.ltx.io/llms.txt published with Docs / API Docs / OpenAPI sections
+- id: model-context-protocol
+  conforms: true
+  evidence: remote MCP server at https://docs.ltx.io/_mcp/server, protocolVersion 2025-06-18
+- id: http-bearer-auth
+  conforms: true
+  evidence: openapi securityScheme bearerAuth (type http, scheme bearer)
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme and no OAuth documented — API-key bearer tokens only
+- id: openid-connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on all hosts
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors are application/json with a custom {type, error:{type,message}} envelope, not
+    application/problem+json
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: deprecation is announced as a dated model notice; no Sunset/Deprecation headers documented
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on lightricks.com, ltx.io, docs.ltx.io and api.ltx.video
+- id: json-api
+  conforms: false
+  evidence: responses are plain application/json (or application/octet-stream for v1 media), not JSON:API
+- id: asyncapi
+  conforms: false
+  evidence: no event, streaming or webhook surface — job completion is discovered by polling
+- id: idempotency-keys
+  conforms: false
+  evidence: no idempotency key header or parameter in the spec or docs
+- id: iso-iec-27001-2022
+  conforms: true
+  evidence: listed on https://trust.lightricks.com/
+- id: iso-iec-42001-2023
+  conforms: true
+  evidence: AI management system certification listed on https://trust.lightricks.com/
+- id: soc2-type2
+  conforms: true
+  evidence: listed on https://trust.lightricks.com/
+- id: soc3
+  conforms: true
+  evidence: listed on https://trust.lightricks.com/
+- id: pci-dss
+  conforms: true
+  evidence: listed on https://trust.lightricks.com/
+- id: gdpr
+  conforms: true
+  evidence: listed on https://trust.lightricks.com/
+- id: ccpa
+  conforms: true
+  evidence: listed on https://trust.lightricks.com/ and CPRA notice published at static.lightricks.com/legal/
+compliance_program:
+  published: true
+  url: https://trust.lightricks.com/
+  artifact: security/lightricks-trust-center.yml

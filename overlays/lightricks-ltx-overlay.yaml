@@ -1,0 +1,84 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Lightricks LTX API
+  version: 1.0.0
+extends: openapi/lightricks-ltx-openapi.yml
+x-generated: '2026-07-19'
+x-method: generated
+x-source: apis.yml + repo artifacts (conventions, errors, lifecycle, rate-limits, authentication)
+actions:
+- target: $.info
+  description: Name the API and point at the provider's own developer surfaces; the harvested spec ships
+    only the generic title "API Reference".
+  update:
+    title: LTX API
+    summary: Generate video from text, images and audio with the LTX-2.3 model family.
+    description: >-
+      The LTX API generates video from text, images and audio. A synchronous v1 surface returns the
+      rendered media directly; an asynchronous v2 surface accepts a job, returns 202 with a job id, and
+      is polled at GET /v2/{endpoint}/{id} until the job reaches a terminal completed or failed state.
+      Authentication is a bearer API key issued from the developer console. Billing is per second of
+      generated or input media.
+    termsOfService: https://static.lightricks.com/legal/terms-of-use.pdf
+    contact:
+      name: LTX Support
+      url: https://help.ltx.io/hc/en-us
+    x-apievangelist-provider: lightricks
+    x-apievangelist-rating-artifacts:
+      conventions: conventions/lightricks-conventions.yml
+      errors: errors/lightricks-error-codes.yml
+      lifecycle: lifecycle/lightricks-lifecycle.yml
+      rate_limits: rate-limits/lightricks-rate-limits.yml
+      authentication: authentication/lightricks-authentication.yml
+      data_model: data-model/lightricks-data-model.yml
+- target: $
+  description: Add the documentation link and tag definitions the harvested spec omits.
+  update:
+    externalDocs:
+      description: LTX API documentation
+      url: https://docs.ltx.io/welcome
+    tags:
+    - name: Video Generation
+      description: Synchronous (v1) generation endpoints that return the rendered media directly.
+      externalDocs: {url: https://docs.ltx.io/api-documentation/api-reference/video-generation/text-to-video}
+    - name: Async Video Generation
+      description: Asynchronous (v2) submit-and-poll generation endpoints. Recommended for production.
+      externalDocs: {url: https://docs.ltx.io/async-jobs}
+    - name: Upload
+      description: Pre-signed upload slots for supplying image, video and audio inputs.
+      externalDocs: {url: https://docs.ltx.io/input-formats}
+- target: $.info
+  description: Record the cross-cutting runtime semantics captured in conventions/ so agents reading the
+    spec alone still get the retry, polling and tracing contract.
+  update:
+    x-apievangelist-conventions:
+      auth: {style: bearer-token, header: Authorization, format: Bearer YOUR_API_KEY}
+      idempotency: {supported: false}
+      pagination: {supported: false}
+      request_tracing: {response_header: x-request-id}
+      async: {style: submit-and-poll, poll_interval_seconds: 5, retention_hours: 24}
+      rate_limits: {status: 429, retry_after_header: true, default_concurrency: 2}
+      errors:
+        format: custom
+        envelope: '{"type":"error","error":{"type":"...","message":"..."}}'
+        rfc9457: false
+        retryable_types: [rate_limit_error, concurrency_limit_error, api_error, service_unavailable,
+          overloaded_error]
+- target: $.components.securitySchemes.bearerAuth
+  description: Document how the bearer credential is obtained and stored.
+  update:
+    description: >-
+      API key issued from the LTX developer console at https://console.ltx.io/ and sent as
+      `Authorization: Bearer YOUR_API_KEY`. Store it in an environment variable (LTXV_API_KEY);
+      never expose it in client-side code.
+    x-apievangelist-credential-source: https://console.ltx.io/
+    x-apievangelist-docs: https://docs.ltx.io/authentication
+- target: $.paths['/v2/{endpoint}/{id}'].get
+  description: Attach the documented polling and retention contract to the status operation.
+  update:
+    x-apievangelist-polling:
+      interval_seconds: 5
+      terminal_states: [completed, failed]
+      retention_hours: 24
+      not_found_meaning: Job does not exist or has expired past the 24-hour retention window.
+      docs: https://docs.ltx.io/async-jobs

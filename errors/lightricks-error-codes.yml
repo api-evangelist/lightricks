@@ -1,0 +1,67 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.ltx.io/errors
+docs: https://docs.ltx.io/errors
+format: custom
+envelope:
+  shape: '{"type": "error", "error": {"type": "<error_type>", "message": "<human readable>"}}'
+  discriminator_field: error.type
+  schema: openapi/lightricks-ltx-openapi.yml#/components/schemas/Error
+  notes: >-
+    The same {type, message} shape appears in three places: v1 sync response bodies on failure,
+    v2 async submit response bodies on failure, and the `error` field of a v2 job status payload
+    whose `status` is `failed`. Error handling can key on `error.type` regardless of origin.
+error_types:
+- type: invalid_request_error
+  status: 400
+  retryable: false
+  meaning: Invalid request parameters.
+- type: authentication_error
+  status: 401
+  retryable: false
+  meaning: API key missing or invalid.
+  remediation: 'Send `Authorization: Bearer YOUR_API_KEY`; verify the key in the developer console.'
+- type: insufficient_funds_error
+  status: 402
+  retryable: false
+  meaning: Not enough credits.
+  remediation: Top up credits or enable auto top-up.
+  docs: https://docs.ltx.io/auto-top-up
+- type: not_found_error
+  status: 404
+  retryable: false
+  meaning: Job doesn't exist or has expired.
+  remediation: Job status and output URLs are retained for 24 hours after a terminal state.
+- type: content_filtered_error
+  status: 422
+  retryable: false
+  meaning: Content rejected by safety filters.
+- type: rate_limit_error
+  status: 429
+  retryable: true
+  meaning: Too many requests in a time window.
+  remediation: Honor the `Retry-After` header; back off exponentially with jitter.
+- type: concurrency_limit_error
+  status: 429
+  retryable: true
+  meaning: Too many concurrent generations (default limit 2).
+  remediation: Queue submissions or contact sales for a higher concurrency limit.
+- type: api_error
+  status: 500
+  retryable: true
+  meaning: Unexpected server error.
+- type: service_unavailable
+  status: 503
+  retryable: true
+  meaning: Service temporarily unavailable.
+- type: overloaded_error
+  status: 529
+  retryable: true
+  meaning: API temporarily overloaded.
+  remediation: Retry after a short delay.
+retry_guidance: >-
+  For retryable errors use exponential backoff with jitter — a random delay of up to 50% of the
+  backoff interval prevents thundering-herd retries. On 429, honor the Retry-After header if present.
+support:
+  request_id_header: x-request-id
+  docs: https://docs.ltx.io/debugging

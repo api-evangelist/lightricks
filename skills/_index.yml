@@ -1,0 +1,26 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/lightricks-ltx-openapi.yml + conventions/, errors/, lifecycle/ artifacts
+api: LTX API
+base_url: https://api.ltx.video
+notes: >-
+  Lightricks publishes no AGENTS.md or provider-authored agent skills. These are API Evangelist
+  generated operating instructions, one per marquee LTX flow. Every operationId referenced below was
+  verified verbatim against openapi/lightricks-ltx-openapi.yml.
+skills:
+- file: lightricks-generate-video-from-text.md
+  name: Generate a video from a text prompt with the LTX API
+  api: openapi/lightricks-ltx-openapi.yml
+  operations: [submit-text-to-video, get-job-status, text-to-video]
+- file: lightricks-animate-an-image.md
+  name: Animate an image into video with the LTX API
+  api: openapi/lightricks-ltx-openapi.yml
+  operations: [create-upload, submit-image-to-video, get-job-status, image-to-video]
+- file: lightricks-edit-an-existing-video.md
+  name: Retake and extend an existing video with the LTX API
+  api: openapi/lightricks-ltx-openapi.yml
+  operations: [create-upload, submit-retake, submit-extend, get-job-status, retake, extend]
+- file: lightricks-upscale-and-reframe.md
+  name: Upscale a video to HDR and reframe it with the LTX API
+  api: openapi/lightricks-ltx-openapi.yml
+  operations: [create-upload, submit-video-to-video-hdr, submit-video-to-video-reframe, get-job-status]

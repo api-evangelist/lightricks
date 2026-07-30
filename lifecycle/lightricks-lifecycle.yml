@@ -1,0 +1,46 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.ltx.io/ltx-2-deprecation, https://docs.ltx.io/models, https://status.ltx.video/
+versioning:
+  scheme: uri-path
+  versions: [v1, v2]
+  current: v2
+  notes: v1 = synchronous, v2 = asynchronous job API. Model generations are versioned separately via
+    the `model` request field.
+  docs: https://docs.ltx.io/models
+deprecation:
+  policy_url: https://docs.ltx.io/ltx-2-deprecation
+  sunset_header: false
+  deprecation_header: false
+  notes: >-
+    Lightricks publishes a dated deprecation notice per model generation rather than an HTTP
+    Sunset/Deprecation header contract. The LTX-2 notice gives a one-month deprecation-to-removal
+    window with transparent fallback: from the deprecation date LTX-2 requests are silently served
+    by LTX-2.3 at LTX-2 prices, and from the removal date they return an error.
+  deprecated_models:
+  - model: ltx-2-fast
+    deprecated_on: '2026-07-15'
+    removed_on: '2026-08-15'
+    replacement: ltx-2-3-fast
+  - model: ltx-2-pro
+    deprecated_on: '2026-07-15'
+    removed_on: '2026-08-15'
+    replacement: ltx-2-3-pro
+deprecated_operations: []
+deprecated_operations_notes: 'No OpenAPI operation carries `deprecated: true`; deprecation is expressed
+  at the model level in the `model` enum descriptions.'
+status_page: https://status.ltx.video/
+status_page_provider: incident.io
+status_page_components: [API, Console]
+sla:
+  url: null
+  uptime_target: null
+  notes: No public SLA or uptime target published; enterprise terms are handled via sales.
+support:
+  help_center: https://help.ltx.io/hc/en-us
+  sales_contact: https://ltx.io/forms/ltx-contact-sales
+data_retention:
+  job_status_and_outputs_hours: 24
+  uploaded_files_hours: 24
+  upload_url_expiry_hours: 1
+  docs: https://docs.ltx.io/async-jobs
