@@ -1,27 +1,175 @@
 aid: lightricks
 name: Lightricks
-description: 'Lightricks is a company surfaced as a portfolio company of insight-partners and added to
-  the API Evangelist network as a stub for enrichment. Sector: consumer. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: Lightricks is a Jerusalem-based creative-technology company behind the Facetune, Photoleap
+  and Videoleap consumer apps and the LTX generative video platform. Its developer-facing product is the
+  LTX API at api.ltx.video, a video-generation API covering text-to-video, image-to-video, audio-to-video,
+  retake, extend, HDR upscale and reframe, offered in synchronous (v1) and asynchronous job-based (v2)
+  forms and billed per second of output. Lightricks also publishes the LTX-2 and LTX-Video open-weight
+  models, a ComfyUI node set and a LoRA trainer on GitHub under Apache-2.0.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://avatars.githubusercontent.com/u/3170348?v=4
 url: https://raw.githubusercontent.com/api-evangelist/lightricks/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - insight-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Consumer
-apis: []
+- Artificial Intelligence
+- Generative AI
+- Video
+- Video Generation
+- Media
+- Machine Learning
+- Creative Tools
+apis:
+- aid: lightricks:lightricks-asyncvideogeneration-api
+  name: Lightricks asyncVideoGeneration API
+  description: The asyncVideoGeneration API from Lightricks — 8 operation(s) for asyncvideogeneration.
+  humanURL: https://docs.ltx.io/welcome
+  baseURL: https://api.ltx.video
+  tags:
+  - asyncVideoGeneration
+  properties:
+  - type: OpenAPI
+    url: openapi/lightricks-asyncvideogeneration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ltx.io/welcome
+  - type: APIReference
+    url: https://docs.ltx.io/api-documentation/api-reference
+- aid: lightricks:lightricks-upload-api
+  name: Lightricks upload API
+  description: The upload API from Lightricks — 1 operation(s) for upload.
+  humanURL: https://docs.ltx.io/welcome
+  baseURL: https://api.ltx.video
+  tags:
+  - upload
+  properties:
+  - type: OpenAPI
+    url: openapi/lightricks-upload-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ltx.io/welcome
+  - type: APIReference
+    url: https://docs.ltx.io/api-documentation/api-reference
+- aid: lightricks:lightricks-videogeneration-api
+  name: Lightricks videoGeneration API
+  description: The videoGeneration API from Lightricks — 5 operation(s) for videogeneration.
+  humanURL: https://docs.ltx.io/welcome
+  baseURL: https://api.ltx.video
+  tags:
+  - videoGeneration
+  properties:
+  - type: OpenAPI
+    url: openapi/lightricks-videogeneration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ltx.io/welcome
+  - type: APIReference
+    url: https://docs.ltx.io/api-documentation/api-reference
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/lightricks-agentic-access.yml
+- type: TrustCenter
+  url: security/lightricks-trust-center.yml
 - type: Website
   url: https://www.lightricks.com/
+- type: DeveloperPortal
+  url: https://docs.ltx.io/
+- type: Documentation
+  url: https://docs.ltx.io/welcome
+- type: APIReference
+  url: https://docs.ltx.io/api-documentation/api-reference
+- type: GettingStarted
+  url: https://docs.ltx.io/quickstart
+- type: SignUp
+  url: https://console.ltx.io/
+- type: Pricing
+  url: https://docs.ltx.io/pricing
+- type: Support
+  url: https://help.ltx.io/hc/en-us
+- type: Blog
+  url: https://ltx.io/blog
+- type: GitHubOrganization
+  url: https://github.com/Lightricks
+- type: TermsOfService
+  url: https://static.lightricks.com/legal/terms-of-use.pdf
+- type: PrivacyPolicy
+  url: https://static.lightricks.com/legal/privacy-policy.pdf
+- type: StatusPage
+  url: https://status.ltx.video/
+- type: Deprecation
+  url: https://docs.ltx.io/ltx-2-deprecation
+- type: Compliance
+  url: https://trust.lightricks.com/
+- type: Authentication
+  url: authentication/lightricks-authentication.yml
+- type: Conventions
+  url: conventions/lightricks-conventions.yml
+- type: ErrorCatalog
+  url: errors/lightricks-problem-types.yml
+- type: ErrorCodes
+  url: errors/lightricks-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/lightricks-lifecycle.yml
+- type: RateLimits
+  url: rate-limits/lightricks-rate-limits.yml
+- type: Packages
+  url: packages/lightricks-packages.yml
+- type: SDKs
+  url: packages/lightricks-packages.yml
+- type: MCPServer
+  url: mcp/lightricks-mcp.yml
+- type: LLMsTxt
+  url: llms/lightricks-llms.txt
+- type: WellKnown
+  url: well-known/lightricks-well-known.yml
+- type: APICatalog
+  url: well-known/lightricks-api-catalog.json
+- type: Conformance
+  url: conformance/lightricks-conformance.yml
+- type: DataModel
+  url: data-model/lightricks-data-model.yml
+- type: DomainSecurity
+  url: security/lightricks-domain-security.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: ChangeLog
+  url: changelog/lightricks-changelog.yml
+- type: ChangeLog
+  url: https://ltx.io/changelog
+- type: Overlay
+  url: overlays/lightricks-ltx-overlay.yaml
+- type: AgentSkill
+  url: skills/lightricks-generate-video-from-text.md
+- type: AgentSkill
+  url: skills/lightricks-animate-an-image.md
+- type: AgentSkill
+  url: skills/lightricks-edit-an-existing-video.md
+- type: AgentSkill
+  url: skills/lightricks-upscale-and-reframe.md
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
