@@ -1,0 +1,196 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference asyncVideoGeneration API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "asyncVideoGeneration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate video from text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v2/text-to-video",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a video from a text prompt. Describe the scene, camera motion, and mood — the model returns a video with matching audio.\n\nResponds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/text-to-video/{id}` until the status is `completed`, then download from `result.video_url`.\n\nBilled per second of generated video. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Generate video from image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v2/image-to-video",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Animate a still image with realistic motion, depth, and audio. Provide a reference image plus a prompt describing the desired motion. The output preserves the visual identity of the source image.\n\nResponds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/image-to-video/{id}` until the status is `completed`, then download from `result.video_url`.\n\nBilled per second of generated video. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Generate video from audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v2/audio-to-video",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a video driven by an audio track. Supply dialogue, music, or ambient sound and the model produces visuals synchronized to the audio. Optionally condition on a reference image for visual direction.\n\nResponds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/audio-to-video/{id}` until the status is `completed`, then download from `result.video_url`.\n\nBilled per second of input audio. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Retake video section",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v2/retake",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Re-generate a section of an existing video by replacing either its audio, its video, or both. Select a time range and mode to iterate on part of a generation without starting over — the rest of the video is preserved.\n\nResponds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/retake/{id}` until the status is `completed`, then download from `result.video_url`.\n\nBilled per second of the input video. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Extend video duration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v2/extend",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Extend a video by generating additional frames at the beginning or end. The model uses context frames from the input to produce a seamless continuation with consistent motion and audio.\n\nResponds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/extend/{id}` until the status is `completed`, then download from `result.video_url`.\n\nBilled per second, based on the extended portion plus the context frames used from the input video. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Upscale video to HDR",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v2/video-to-video-hdr",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert an SDR video into HDR. On completion, the result contains `exr_frames_url` — a ZIP of per-frame EXR images suitable for color grading or HDR rendering pipelines.\n\nResponds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/video-to-video-hdr/{id}` until the status is `completed`.\n\nBilled per second of input video, by input resolution tier. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Reframe a video to a new resolution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v2/video-to-video-reframe",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reframe a video to a new resolution. The model fills in the missing areas with generated content that matches the original. On completion, the result contains `video_url`, the source video reframed to the requested resolution.\n\nResponds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/video-to-video-reframe/{id}` until the status is `completed`.\n\nBilled per second of input video, by output resolution. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Get job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ltx.video/v2/:endpoint/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID returned from the submit endpoint."
+              },
+              {
+                "name": "endpoint",
+                "value": "",
+                "type": "path",
+                "description": "The endpoint type used when submitting the job (e.g., `text-to-video`, `image-to-video`, `audio-to-video`, `retake`, `extend`, `video-to-video-hdr`, `video-to-video-reframe`)."
+              }
+            ]
+          },
+          "docs": "Poll the status of an async generation job. Status transitions through `pending` → `processing` → `completed` or `failed`. When completed, the `result` object contains output URLs (see each endpoint's documentation for the available keys). Poll every 5 seconds and stop when the status reaches `completed` or `failed`. Status and output URLs are available for 24 hours after the job reaches a terminal state. After expiry this endpoint returns `404`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

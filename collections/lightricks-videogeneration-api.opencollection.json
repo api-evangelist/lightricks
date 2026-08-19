@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference asyncVideoGeneration videoGeneration API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "videoGeneration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate video from text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v1/text-to-video",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a video from a text prompt. Describe the scene, camera motion, and mood — the model returns a video with matching audio.\n\nReturns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/text-to-video](/api-documentation/api-reference/async-video-generation/submit-text-to-video).\n\nBilled per second of generated video. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Generate video from image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v1/image-to-video",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Animate a still image with realistic motion, depth, and audio. Provide a reference image plus a prompt describing the desired motion. The output preserves the visual identity of the source image.\n\nReturns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/image-to-video](/api-documentation/api-reference/async-video-generation/submit-image-to-video).\n\nBilled per second of generated video. See [Pricing](/pricing).\n"
+        },
+        {
+          "info": {
+            "name": "Generate video from audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v1/audio-to-video",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a video driven by an audio track. Supply dialogue, music, or ambient sound and the model produces visuals synchronized to the audio. Optionally condition on a reference image for visual direction. Output video is 25 fps.\n\nReturns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/audio-to-video](/api-documentation/api-reference/async-video-generation/submit-audio-to-video).\n\nBilled per second of input audio. See [Pricing](/prici"
+        },
+        {
+          "info": {
+            "name": "Retake video section",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v1/retake",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Re-generate a section of an existing video by replacing either its audio, its video, or both. Iterate on part of a generation without starting over — the rest of the video is preserved. The edited section is defined by the `start_time` and `duration` parameters.\n\nReturns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/retake](/api-documentation/api-reference/async-video-generation/submit-retake).\n\nBilled per second of the input video."
+        },
+        {
+          "info": {
+            "name": "Extend video duration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v1/extend",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Extend a video by generating additional frames at the beginning or end. The model uses context frames from the input to produce a seamless continuation with consistent motion and audio.\n> Audio is generated for the extended portion if the input video has audio.\n\nReturns the generated video directly in the response. For an asynchronous version that returns a job to poll, see [v2/extend](/api-documentation/api-reference/async-video-generation/submit-extend).\n\nBilled per second, based on the extend"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

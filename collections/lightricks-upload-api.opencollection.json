@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference asyncVideoGeneration upload API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "upload",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ltx.video/v1/upload",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Generate a signed URL for uploading media files to use as input for video generation.\n\nReturns a pre-signed URL that can be used to upload files directly to cloud storage.\nUse the returned `storage_uri` in subsequent video generation requests (e.g., `image_uri` or `video_uri` parameters).\nThe URL expires after 1 hour.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
