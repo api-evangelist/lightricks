@@ -6,6 +6,18 @@ description: Lightricks is a Jerusalem-based creative-technology company behind 
   retake, extend, HDR upscale and reframe, offered in synchronous (v1) and asynchronous job-based (v2)
   forms and billed per second of output. Lightricks also publishes the LTX-2 and LTX-Video open-weight
   models, a ComfyUI node set and a LoRA trainer on GitHub under Apache-2.0.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
