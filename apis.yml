@@ -95,18 +95,16 @@ apis:
     url: https://docs.ltx.io/welcome
   - type: APIReference
     url: https://docs.ltx.io/api-documentation/api-reference
-- aid: lightricks:lightricks-videogeneration-api
-  name: Lightricks videoGeneration API
-  description: The videoGeneration API from Lightricks — 5 operation(s) for videogeneration.
+- aid: lightricks:lightricks-video-generation-api
+  name: Lightricks Video Generation API
+  description: The Video Generation API from Lightricks — 5 operation(s) for video generation.
   humanURL: https://docs.ltx.io/welcome
   baseURL: https://api.ltx.video
   tags:
   - Video Generation
-  tags_raw:
-  - videoGeneration
   properties:
   - type: OpenAPI
-    url: openapi/lightricks-videogeneration-api-openapi.yml
+    url: openapi/lightricks-video-generation-api-openapi.yml
   - type: Documentation
     url: https://docs.ltx.io/welcome
   - type: APIReference
