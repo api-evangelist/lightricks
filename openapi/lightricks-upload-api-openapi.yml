@@ -1,12 +1,12 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: API Reference asyncVideoGeneration upload API
+  title: Reference Upload API
   version: 1.0.0
 servers:
 - url: https://api.ltx.video
   description: Production server
 tags:
-- name: upload
+- name: Upload
 paths:
   /v1/upload:
     post:
@@ -19,11 +19,9 @@ paths:
 
         Use the returned `storage_uri` in subsequent video generation requests (e.g., `image_uri` or `video_uri` parameters).
 
-        The URL expires after 1 hour.
-
-        '
+        The URL expires after 1 hour.'
       tags:
-      - upload
+      - Upload
       parameters:
       - name: Authorization
         in: header
@@ -58,37 +56,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ErrorError:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Error type for programmatic handling
-        message:
-          type: string
-          description: Human-readable error description
-      required:
-      - type
-      - message
-      title: ErrorError
-    Error:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ErrorType'
-          description: Response type indicator
-        error:
-          $ref: '#/components/schemas/ErrorError'
-      required:
-      - type
-      - error
-      title: Error
-    ErrorType:
-      type: string
-      enum:
-      - error
-      description: Response type indicator
-      title: ErrorType
     UploadResponse:
       type: object
       properties:
@@ -129,6 +96,37 @@ components:
       - expires_at
       - required_headers
       title: UploadResponse
+    ErrorError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error type for programmatic handling
+        message:
+          type: string
+          description: Human-readable error description
+      required:
+      - type
+      - message
+      title: ErrorError
+    ErrorType:
+      type: string
+      enum:
+      - error
+      description: Response type indicator
+      title: ErrorType
+    Error:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ErrorType'
+          description: Response type indicator
+        error:
+          $ref: '#/components/schemas/ErrorError'
+      required:
+      - type
+      - error
+      title: Error
   securitySchemes:
     bearerAuth:
       type: http

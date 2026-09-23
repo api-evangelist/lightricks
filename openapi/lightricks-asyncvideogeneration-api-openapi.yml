@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: API Reference asyncVideoGeneration API
+  title: Reference Async Video Generation API
   version: 1.0.0
 servers:
 - url: https://api.ltx.video
@@ -18,9 +18,7 @@ paths:
         Responds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/text-to-video/{id}` until the status is `completed`, then download from `result.video_url`.
 
 
-        Billed per second of generated video. See [Pricing](/pricing).
-
-        '
+        Billed per second of generated video. See Pricing.'
       tags:
       - asyncVideoGeneration
       parameters:
@@ -94,9 +92,7 @@ paths:
         Responds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/image-to-video/{id}` until the status is `completed`, then download from `result.video_url`.
 
 
-        Billed per second of generated video. See [Pricing](/pricing).
-
-        '
+        Billed per second of generated video. See Pricing.'
       tags:
       - asyncVideoGeneration
       parameters:
@@ -170,9 +166,7 @@ paths:
         Responds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/audio-to-video/{id}` until the status is `completed`, then download from `result.video_url`.
 
 
-        Billed per second of input audio. See [Pricing](/pricing).
-
-        '
+        Billed per second of input audio. See Pricing.'
       tags:
       - asyncVideoGeneration
       parameters:
@@ -246,9 +240,7 @@ paths:
         Responds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/retake/{id}` until the status is `completed`, then download from `result.video_url`.
 
 
-        Billed per second of the input video. See [Pricing](/pricing).
-
-        '
+        Billed per second of the input video. See Pricing.'
       tags:
       - asyncVideoGeneration
       parameters:
@@ -322,9 +314,7 @@ paths:
         Responds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/extend/{id}` until the status is `completed`, then download from `result.video_url`.
 
 
-        Billed per second, based on the extended portion plus the context frames used from the input video. See [Pricing](/pricing).
-
-        '
+        Billed per second, based on the extended portion plus the context frames used from the input video. See Pricing.'
       tags:
       - asyncVideoGeneration
       parameters:
@@ -398,9 +388,7 @@ paths:
         Responds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/video-to-video-hdr/{id}` until the status is `completed`.
 
 
-        Billed per second of input video, by input resolution tier. See [Pricing](/pricing).
-
-        '
+        Billed per second of input video, by input resolution tier. See Pricing.'
       tags:
       - asyncVideoGeneration
       parameters:
@@ -474,9 +462,7 @@ paths:
         Responds immediately with the job `id` and `created_at` timestamp. Poll `GET /v2/video-to-video-reframe/{id}` until the status is `completed`.
 
 
-        Billed per second of input video, by output resolution. See [Pricing](/pricing).
-
-        '
+        Billed per second of input video, by output resolution. See Pricing.'
       tags:
       - asyncVideoGeneration
       parameters:
@@ -544,9 +530,7 @@ paths:
     get:
       operationId: get-job-status
       summary: Get job status
-      description: 'Poll the status of an async generation job. Status transitions through `pending` → `processing` → `completed` or `failed`. When completed, the `result` object contains output URLs (see each endpoint''s documentation for the available keys). Poll every 5 seconds and stop when the status reaches `completed` or `failed`. Status and output URLs are available for 24 hours after the job reaches a terminal state. After expiry this endpoint returns `404`.
-
-        '
+      description: Poll the status of an async generation job. Status transitions through `pending` → `processing` → `completed` or `failed`. When completed, the `result` object contains output URLs (see each endpoint's documentation for the available keys). Poll every 5 seconds and stop when the status reaches `completed` or `failed`. Status and output URLs are available for 24 hours after the job reaches a terminal state. After expiry this endpoint returns `404`.
       tags:
       - asyncVideoGeneration
       parameters:
@@ -595,51 +579,35 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    V2JobError:
+    V2JobResult:
       type: object
-      properties:
-        type:
-          type: string
-          description: Error type for programmatic handling. Same values as HTTP error types.
-        message:
-          type: string
-          description: Human-readable error description.
-      required:
-      - type
-      - message
-      description: 'Error details for a failed job. Uses the same error types as HTTP error responses
-
-        (`api_error`, `content_filtered_error`, `insufficient_funds_error`, etc.).
+      additionalProperties:
+        type: string
+        format: uri
+      description: 'Result object for a completed job. Contains output URLs — the available keys depend on the endpoint. Available for 24 hours after completion.
 
         '
-      title: V2JobError
-    V2JobCreatedResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique job identifier. Use this to poll for status.
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of when the job was created.
-      required:
-      - id
-      - created_at
-      description: Response returned when a V2 async job is successfully submitted.
-      title: V2JobCreatedResponse
-    Error:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ErrorType'
-          description: Response type indicator
-        error:
-          $ref: '#/components/schemas/ErrorError'
-      required:
-      - type
-      - error
-      title: Error
+      title: V2JobResult
+    EditVideoRequestMode:
+      type: string
+      enum:
+      - replace_audio
+      - replace_video
+      - replace_audio_and_video
+      default: replace_audio_and_video
+      description: 'Can be any of the following:
+
+        - `replace_audio` - Replace only the audio track
+
+        - `replace_video` - Replace only the video track
+
+        - `replace_audio_and_video` - Replace both audio and video tracks
+
+
+        The default value is `replace_audio_and_video` if not specified.
+
+        '
+      title: EditVideoRequestMode
     AudioToVideoRequest:
       type: object
       properties:
@@ -676,69 +644,17 @@ components:
       required:
       - audio_uri
       title: AudioToVideoRequest
-    VideoToVideoReframeRequestResolution:
-      type: string
-      enum:
-      - 720x720
-      - 1080x1080
-      - 720x900
-      - 1080x1350
-      - 900x720
-      - 1350x1080
-      - 720x1280
-      - 1080x1920
-      - 1280x720
-      - 1920x1080
-      description: 'Target output resolution. The source video is extended to fill this frame. Pass one of the values below; each maps to an aspect ratio:
-
-
-        | Aspect ratio | Resolutions |
-
-        | --- | --- |
-
-        | 1:1 (square) | `720x720`, `1080x1080` |
-
-        | 4:5 (portrait) | `720x900`, `1080x1350` |
-
-        | 5:4 (landscape) | `900x720`, `1350x1080` |
-
-        | 9:16 (portrait) | `720x1280`, `1080x1920` |
-
-        | 16:9 (landscape) | `1280x720`, `1920x1080` |
-
-        '
-      title: VideoToVideoReframeRequestResolution
-    TextToVideoRequestModel:
-      type: string
-      enum:
-      - ltx-2-fast
-      - ltx-2-pro
-      - ltx-2-3-fast
-      - ltx-2-3-pro
-      description: 'Model to use for generation. See [Supported Models](/models) for details.
-
-
-        > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
-
-        '
-      title: TextToVideoRequestModel
-    AudioToVideoRequestResolution:
-      type: string
-      enum:
-      - 1920x1080
-      - 1080x1920
-      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input image orientation — portrait images produce 1080x1920 video, landscape images produce 1920x1080 video. If no image is provided, defaults to 1920x1080.
-
-        '
-      title: AudioToVideoRequestResolution
-    TextToVideoRequest:
+    ImageToVideoRequest:
       type: object
       properties:
+        image_uri:
+          type: string
+          description: Image to be used as the first frame of the video. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
         prompt:
           type: string
-          description: Text prompt describing the desired video content
+          description: Text description of how the image should be animated, can relate to the details in the image
         model:
-          $ref: '#/components/schemas/TextToVideoRequestModel'
+          $ref: '#/components/schemas/ImageToVideoRequestModel'
           description: 'Model to use for generation. See [Supported Models](/models) for details.
 
 
@@ -759,71 +675,24 @@ components:
           type: boolean
           default: true
           description: Generate audio for the video. When true, the generated video will include AI-generated audio matching the scene. When false, only silent video is generated.
+        last_frame_uri:
+          type: string
+          description: 'Image to be used as the last frame of the video. When provided, the video will interpolate between the first frame (image_uri) and this last frame. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
+
+
+            > Note: Only supported by `ltx-2-3` models (`ltx-2-3-fast`, `ltx-2-3-pro`).
+
+            '
         camera_motion:
-          $ref: '#/components/schemas/TextToVideoRequestCameraMotion'
+          $ref: '#/components/schemas/ImageToVideoRequestCameraMotion'
           description: Apply camera motion effects to the generated video.
       required:
+      - image_uri
       - prompt
       - model
       - duration
       - resolution
-      title: TextToVideoRequest
-    ErrorError:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Error type for programmatic handling
-        message:
-          type: string
-          description: Human-readable error description
-      required:
-      - type
-      - message
-      title: ErrorError
-    V2EndpointIdGetParametersEndpoint:
-      type: string
-      enum:
-      - text-to-video
-      - image-to-video
-      - audio-to-video
-      - retake
-      - extend
-      - video-to-video-hdr
-      - video-to-video-reframe
-      title: V2EndpointIdGetParametersEndpoint
-    V2JobFailedStatus:
-      type: string
-      enum:
-      - failed
-      title: V2JobFailedStatus
-    V2JobResult:
-      type: object
-      additionalProperties:
-        type: string
-        format: uri
-      description: 'Result object for a completed job. Contains output URLs — the available keys depend on the endpoint. Available for 24 hours after completion.
-
-        '
-      title: V2JobResult
-    V2JobProcessingStatus:
-      type: string
-      enum:
-      - processing
-      title: V2JobProcessingStatus
-    V2JobPendingStatus:
-      type: string
-      enum:
-      - pending
-      title: V2JobPendingStatus
-    VideoToVideoReframeRequestModel:
-      type: string
-      enum:
-      - ltx-2-3-pro
-      description: 'Model used for reframing.
-
-        '
-      title: VideoToVideoReframeRequestModel
+      title: ImageToVideoRequest
     EditVideoRequest:
       type: object
       properties:
@@ -900,17 +769,19 @@ components:
       - start_time
       - duration
       title: EditVideoRequest
-    ImageToVideoRequest:
+    V2JobCompletedStatus:
+      type: string
+      enum:
+      - completed
+      title: V2JobCompletedStatus
+    TextToVideoRequest:
       type: object
       properties:
-        image_uri:
-          type: string
-          description: Image to be used as the first frame of the video. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
         prompt:
           type: string
-          description: Text description of how the image should be animated, can relate to the details in the image
+          description: Text prompt describing the desired video content
         model:
-          $ref: '#/components/schemas/ImageToVideoRequestModel'
+          $ref: '#/components/schemas/TextToVideoRequestModel'
           description: 'Model to use for generation. See [Supported Models](/models) for details.
 
 
@@ -931,53 +802,16 @@ components:
           type: boolean
           default: true
           description: Generate audio for the video. When true, the generated video will include AI-generated audio matching the scene. When false, only silent video is generated.
-        last_frame_uri:
-          type: string
-          description: 'Image to be used as the last frame of the video. When provided, the video will interpolate between the first frame (image_uri) and this last frame. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
-
-
-            > Note: Only supported by `ltx-2-3` models (`ltx-2-3-fast`, `ltx-2-3-pro`).
-
-            '
         camera_motion:
-          $ref: '#/components/schemas/ImageToVideoRequestCameraMotion'
+          $ref: '#/components/schemas/TextToVideoRequestCameraMotion'
           description: Apply camera motion effects to the generated video.
       required:
-      - image_uri
       - prompt
       - model
       - duration
       - resolution
-      title: ImageToVideoRequest
-    VideoToVideoHdrRequest:
-      type: object
-      properties:
-        video_uri:
-          type: string
-          description: 'SDR source video in HTTPS URL or base64 data URI format. See [Input Formats](/input-formats#video-input) for supported formats and codecs.
-
-
-            Max frames (and max duration at 24 fps) depend on the input resolution tier — inputs are snapped to the smallest tier that fits by pixel count:
-
-
-            | Input resolution tier | Max frames | Max duration (at 24 fps) |
-
-            | --- | --- | --- |
-
-            | Up to 1080p (≤ 1920×1080) | 181 | ~7 seconds |
-
-            | Up to 1440p (≤ 2560×1440) | 101 | ~4 seconds |
-
-            | Up to 4K (≤ 3840×2160) | 41 | ~2 seconds |
-
-
-            The output video preserves the input video''s resolution.
-
-            '
-      required:
-      - video_uri
-      title: VideoToVideoHdrRequest
-    ExtendVideoRequestModel:
+      title: TextToVideoRequest
+    EditVideoRequestModel:
       type: string
       enum:
       - ltx-2-pro
@@ -989,7 +823,21 @@ components:
         > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
 
         '
-      title: ExtendVideoRequestModel
+      title: EditVideoRequestModel
+    EditVideoRequestResolution:
+      type: string
+      enum:
+      - 1920x1080
+      - 1080x1920
+      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input video orientation — portrait videos produce 1080x1920 output, landscape videos produce 1920x1080 output.
+
+        '
+      title: EditVideoRequestResolution
+    V2JobProcessingStatus:
+      type: string
+      enum:
+      - processing
+      title: V2JobProcessingStatus
     VideoToVideoReframeRequest:
       type: object
       properties:
@@ -1031,15 +879,6 @@ components:
       - model
       - resolution
       title: VideoToVideoReframeRequest
-    EditVideoRequestResolution:
-      type: string
-      enum:
-      - 1920x1080
-      - 1080x1920
-      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input video orientation — portrait videos produce 1080x1920 output, landscape videos produce 1920x1080 output.
-
-        '
-      title: EditVideoRequestResolution
     ExtendVideoRequest:
       type: object
       properties:
@@ -1104,6 +943,205 @@ components:
       - video_uri
       - duration
       title: ExtendVideoRequest
+    VideoToVideoHdrRequest:
+      type: object
+      properties:
+        video_uri:
+          type: string
+          description: 'SDR source video in HTTPS URL or base64 data URI format. See [Input Formats](/input-formats#video-input) for supported formats and codecs.
+
+
+            Max frames (and max duration at 24 fps) depend on the input resolution tier — inputs are snapped to the smallest tier that fits by pixel count:
+
+
+            | Input resolution tier | Max frames | Max duration (at 24 fps) |
+
+            | --- | --- | --- |
+
+            | Up to 1080p (≤ 1920×1080) | 181 | ~7 seconds |
+
+            | Up to 1440p (≤ 2560×1440) | 101 | ~4 seconds |
+
+            | Up to 4K (≤ 3840×2160) | 41 | ~2 seconds |
+
+
+            The output video preserves the input video''s resolution.
+
+            '
+      required:
+      - video_uri
+      title: VideoToVideoHdrRequest
+    V2EndpointIdGetParametersEndpoint:
+      type: string
+      enum:
+      - text-to-video
+      - image-to-video
+      - audio-to-video
+      - retake
+      - extend
+      - video-to-video-hdr
+      - video-to-video-reframe
+      title: V2EndpointIdGetParametersEndpoint
+    Error:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ErrorType'
+          description: Response type indicator
+        error:
+          $ref: '#/components/schemas/ErrorError'
+      required:
+      - type
+      - error
+      title: Error
+    AudioToVideoRequestResolution:
+      type: string
+      enum:
+      - 1920x1080
+      - 1080x1920
+      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input image orientation — portrait images produce 1080x1920 video, landscape images produce 1920x1080 video. If no image is provided, defaults to 1920x1080.
+
+        '
+      title: AudioToVideoRequestResolution
+    ExtendVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-pro
+      - ltx-2-3-pro
+      default: ltx-2-3-pro
+      description: 'Model to use for video generation.
+
+
+        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: ExtendVideoRequestModel
+    ExtendVideoRequestMode:
+      type: string
+      enum:
+      - start
+      - end
+      default: end
+      description: 'Where to extend the video:
+
+        - `end` (default): Extends the video at the end.
+
+        - `start`: Extends the video at the beginning.
+
+        '
+      title: ExtendVideoRequestMode
+    VideoToVideoReframeRequestResolution:
+      type: string
+      enum:
+      - 720x720
+      - 1080x1080
+      - 720x900
+      - 1080x1350
+      - 900x720
+      - 1350x1080
+      - 720x1280
+      - 1080x1920
+      - 1280x720
+      - 1920x1080
+      description: 'Target output resolution. The source video is extended to fill this frame. Pass one of the values below; each maps to an aspect ratio:
+
+
+        | Aspect ratio | Resolutions |
+
+        | --- | --- |
+
+        | 1:1 (square) | `720x720`, `1080x1080` |
+
+        | 4:5 (portrait) | `720x900`, `1080x1350` |
+
+        | 5:4 (landscape) | `900x720`, `1350x1080` |
+
+        | 9:16 (portrait) | `720x1280`, `1080x1920` |
+
+        | 16:9 (landscape) | `1280x720`, `1920x1080` |
+
+        '
+      title: VideoToVideoReframeRequestResolution
+    VideoToVideoReframeRequestModel:
+      type: string
+      enum:
+      - ltx-2-3-pro
+      description: 'Model used for reframing.
+
+        '
+      title: VideoToVideoReframeRequestModel
+    TextToVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-fast
+      - ltx-2-pro
+      - ltx-2-3-fast
+      - ltx-2-3-pro
+      description: 'Model to use for generation. See [Supported Models](/models) for details.
+
+
+        > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: TextToVideoRequestModel
+    V2JobFailedStatus:
+      type: string
+      enum:
+      - failed
+      title: V2JobFailedStatus
+    ErrorType:
+      type: string
+      enum:
+      - error
+      description: Response type indicator
+      title: ErrorType
+    ImageToVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-fast
+      - ltx-2-pro
+      - ltx-2-3-fast
+      - ltx-2-3-pro
+      description: 'Model to use for generation. See [Supported Models](/models) for details.
+
+
+        > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: ImageToVideoRequestModel
+    V2JobPendingStatus:
+      type: string
+      enum:
+      - pending
+      title: V2JobPendingStatus
+    V2JobCreatedResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique job identifier. Use this to poll for status.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the job was created.
+      required:
+      - id
+      - created_at
+      description: Response returned when a V2 async job is successfully submitted.
+      title: V2JobCreatedResponse
+    AudioToVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-pro
+      - ltx-2-3-pro
+      default: ltx-2-3-pro
+      description: 'Model to use for video generation.
+
+
+        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: AudioToVideoRequestModel
     V2JobStatusResponse:
       oneOf:
       - type: object
@@ -1192,20 +1230,24 @@ components:
 
         '
       title: V2JobStatusResponse
-    ImageToVideoRequestModel:
-      type: string
-      enum:
-      - ltx-2-fast
-      - ltx-2-pro
-      - ltx-2-3-fast
-      - ltx-2-3-pro
-      description: 'Model to use for generation. See [Supported Models](/models) for details.
+    V2JobError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error type for programmatic handling. Same values as HTTP error types.
+        message:
+          type: string
+          description: Human-readable error description.
+      required:
+      - type
+      - message
+      description: 'Error details for a failed job. Uses the same error types as HTTP error responses
 
-
-        > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+        (`api_error`, `content_filtered_error`, `insufficient_funds_error`, etc.).
 
         '
-      title: ImageToVideoRequestModel
+      title: V2JobError
     TextToVideoRequestCameraMotion:
       type: string
       enum:
@@ -1219,25 +1261,19 @@ components:
       - focus_shift
       description: Apply camera motion effects to the generated video.
       title: TextToVideoRequestCameraMotion
-    ErrorType:
-      type: string
-      enum:
-      - error
-      description: Response type indicator
-      title: ErrorType
-    AudioToVideoRequestModel:
-      type: string
-      enum:
-      - ltx-2-pro
-      - ltx-2-3-pro
-      default: ltx-2-3-pro
-      description: 'Model to use for video generation.
-
-
-        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
-
-        '
-      title: AudioToVideoRequestModel
+    ErrorError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error type for programmatic handling
+        message:
+          type: string
+          description: Human-readable error description
+      required:
+      - type
+      - message
+      title: ErrorError
     ImageToVideoRequestCameraMotion:
       type: string
       enum:
@@ -1251,58 +1287,6 @@ components:
       - focus_shift
       description: Apply camera motion effects to the generated video.
       title: ImageToVideoRequestCameraMotion
-    V2JobCompletedStatus:
-      type: string
-      enum:
-      - completed
-      title: V2JobCompletedStatus
-    ExtendVideoRequestMode:
-      type: string
-      enum:
-      - start
-      - end
-      default: end
-      description: 'Where to extend the video:
-
-        - `end` (default): Extends the video at the end.
-
-        - `start`: Extends the video at the beginning.
-
-        '
-      title: ExtendVideoRequestMode
-    EditVideoRequestModel:
-      type: string
-      enum:
-      - ltx-2-pro
-      - ltx-2-3-pro
-      default: ltx-2-3-pro
-      description: 'Model to use for video generation.
-
-
-        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
-
-        '
-      title: EditVideoRequestModel
-    EditVideoRequestMode:
-      type: string
-      enum:
-      - replace_audio
-      - replace_video
-      - replace_audio_and_video
-      default: replace_audio_and_video
-      description: 'Can be any of the following:
-
-        - `replace_audio` - Replace only the audio track
-
-        - `replace_video` - Replace only the video track
-
-        - `replace_audio_and_video` - Replace both audio and video tracks
-
-
-        The default value is `replace_audio_and_video` if not specified.
-
-        '
-      title: EditVideoRequestMode
   securitySchemes:
     bearerAuth:
       type: http

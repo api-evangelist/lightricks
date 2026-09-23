@@ -1,18 +1,32 @@
 {
   "provider": "lightricks",
   "sources": [
-    "lightricks-asyncvideogeneration-api-openapi.yml",
-    "lightricks-upload-api-openapi.yml",
-    "lightricks-videogeneration-api-openapi.yml"
+    "_original/lightricks-ltx-openapi-original.json"
   ],
   "outputs": [
     "lightricks-asyncvideogeneration-api-openapi.yml",
     "lightricks-upload-api-openapi.yml",
     "lightricks-videogeneration-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lightricks-ltx-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "lightricks-ltx-openapi-original.json: declared missing tag: asyncVideoGeneration",
+    "lightricks-ltx-openapi-original.json: declared missing tag: upload",
+    "lightricks-ltx-openapi-original.json: declared missing tag: videoGeneration",
+    "superseded outputs removed: lightricks-video-generation-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 3 total)"
+  ],
+  "skipped": [
+    "_original/lightricks-ltx-openapi.yml: archived document superseded by a larger archived document",
+    "lightricks-asyncvideogeneration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lightricks-upload-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lightricks-video-generation-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
