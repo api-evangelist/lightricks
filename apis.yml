@@ -51,7 +51,7 @@ tags:
 - Video
 - Video Generation
 - Media
-- Machine-Learning
+- Machine Learning
 - Creative Tools
 tags_raw:
 - Company
@@ -63,9 +63,10 @@ tags_raw:
 - Media
 - Machine Learning
 - Creative Tools
+- Machine-Learning
 apis:
 - aid: lightricks:lightricks-asyncvideogeneration-api
-  name: Lightricks asyncVideoGeneration API
+  name: Lightricks Async Video Generation API
   description: The asyncVideoGeneration API from Lightricks — 8 operation(s) for asyncvideogeneration.
   humanURL: https://docs.ltx.io/welcome
   baseURL: https://api.ltx.video
@@ -80,7 +81,7 @@ apis:
   - type: APIReference
     url: https://docs.ltx.io/api-documentation/api-reference
 - aid: lightricks:lightricks-upload-api
-  name: Lightricks upload API
+  name: Lightricks Upload API
   description: The upload API from Lightricks — 1 operation(s) for upload.
   humanURL: https://docs.ltx.io/welcome
   baseURL: https://api.ltx.video
