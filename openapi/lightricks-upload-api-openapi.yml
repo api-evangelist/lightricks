@@ -56,12 +56,37 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    ErrorError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error type for programmatic handling
+        message:
+          type: string
+          description: Human-readable error description
+      required:
+      - type
+      - message
+      title: ErrorError
     ErrorType:
       type: string
       enum:
       - error
       description: Response type indicator
       title: ErrorType
+    Error:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ErrorType'
+          description: Response type indicator
+        error:
+          $ref: '#/components/schemas/ErrorError'
+      required:
+      - type
+      - error
+      title: Error
     UploadResponse:
       type: object
       properties:
@@ -102,31 +127,6 @@ components:
       - expires_at
       - required_headers
       title: UploadResponse
-    Error:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ErrorType'
-          description: Response type indicator
-        error:
-          $ref: '#/components/schemas/ErrorError'
-      required:
-      - type
-      - error
-      title: Error
-    ErrorError:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Error type for programmatic handling
-        message:
-          type: string
-          description: Human-readable error description
-      required:
-      - type
-      - message
-      title: ErrorError
   securitySchemes:
     bearerAuth:
       type: http

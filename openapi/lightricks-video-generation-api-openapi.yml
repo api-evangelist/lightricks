@@ -387,6 +387,78 @@ paths:
               $ref: '#/components/schemas/ExtendVideoRequest'
 components:
   schemas:
+    ImageToVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-fast
+      - ltx-2-pro
+      - ltx-2-3-fast
+      - ltx-2-3-pro
+      description: 'Model to use for generation. See [Supported Models](/models) for details.
+
+
+        > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: ImageToVideoRequestModel
+    Error:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/ErrorType'
+          description: Response type indicator
+        error:
+          $ref: '#/components/schemas/ErrorError'
+      required:
+      - type
+      - error
+      title: Error
+    TextToVideoRequest:
+      type: object
+      properties:
+        prompt:
+          type: string
+          description: Text prompt describing the desired video content
+        model:
+          $ref: '#/components/schemas/TextToVideoRequestModel'
+          description: 'Model to use for generation. See [Supported Models](/models) for details.
+
+
+            > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+            '
+        duration:
+          type: integer
+          description: Video duration in seconds. See [Supported Models](/models) for available durations per model.
+        fps:
+          type: integer
+          default: 24
+          description: Frame rate in frames per second. See [Supported Models](/models) for available FPS per model and resolution.
+        resolution:
+          type: string
+          description: Output video resolution. See [Supported Models](/models) for available resolutions per model.
+        generate_audio:
+          type: boolean
+          default: true
+          description: Generate audio for the video. When true, the generated video will include AI-generated audio matching the scene. When false, only silent video is generated.
+        camera_motion:
+          $ref: '#/components/schemas/TextToVideoRequestCameraMotion'
+          description: Apply camera motion effects to the generated video.
+      required:
+      - prompt
+      - model
+      - duration
+      - resolution
+      title: TextToVideoRequest
+    AudioToVideoRequestResolution:
+      type: string
+      enum:
+      - 1920x1080
+      - 1080x1920
+      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input image orientation — portrait images produce 1080x1920 video, landscape images produce 1920x1080 video. If no image is provided, defaults to 1920x1080.
+
+        '
+      title: AudioToVideoRequestResolution
     TextToVideoRequestCameraMotion:
       type: string
       enum:
@@ -400,6 +472,96 @@ components:
       - focus_shift
       description: Apply camera motion effects to the generated video.
       title: TextToVideoRequestCameraMotion
+    ExtendVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-pro
+      - ltx-2-3-pro
+      default: ltx-2-3-pro
+      description: 'Model to use for video generation.
+
+
+        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: ExtendVideoRequestModel
+    ExtendVideoRequest:
+      type: object
+      properties:
+        video_uri:
+          type: string
+          description: 'Input video for extending. See [Input Formats](/input-formats#video-input) for supported formats and codecs.
+
+
+            - Supported aspect ratios: 16:9 and 9:16
+
+            - Maximum resolution: 3840x2160 (4K)
+
+            - Minimum frame count: 73 (around 3 seconds at 24fps)
+
+
+            The output video preserves the input video''s resolution.
+
+            '
+        prompt:
+          type: string
+          description: 'Description of what should happen in the extended portion of the video.
+
+            '
+        duration:
+          type: number
+          format: double
+          description: 'Duration in seconds to extend the video. Minimum 2 seconds, maximum 20 seconds (480 frames at 24fps).
+
+            '
+        mode:
+          $ref: '#/components/schemas/ExtendVideoRequestMode'
+          description: 'Where to extend the video:
+
+            - `end` (default): Extends the video at the end.
+
+            - `start`: Extends the video at the beginning.
+
+            '
+        model:
+          $ref: '#/components/schemas/ExtendVideoRequestModel'
+          description: 'Model to use for video generation.
+
+
+            > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+            '
+        context:
+          type: number
+          format: double
+          description: '**Advanced parameter:** Number of seconds from the input video to use as context for the extension (maximum 20 seconds).
+
+
+            The model uses context frames from the input video to generate a more coherent extension.
+
+            The sum of `context` + `duration` (converted to frames using the input video''s FPS) cannot exceed 505 frames (~21 seconds at 24fps). For higher-FPS inputs, the maximum total duration in seconds will be proportionally lower; for lower-FPS inputs, it will be proportionally higher.
+
+
+            If not provided, defaults to maximize available context within the 505 frame limit while respecting the 20-second cap.
+
+            '
+      required:
+      - video_uri
+      - duration
+      title: ExtendVideoRequest
+    AudioToVideoRequestModel:
+      type: string
+      enum:
+      - ltx-2-pro
+      - ltx-2-3-pro
+      default: ltx-2-3-pro
+      description: 'Model to use for video generation.
+
+
+        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+        '
+      title: AudioToVideoRequestModel
     EditVideoRequest:
       type: object
       properties:
@@ -476,214 +638,6 @@ components:
       - start_time
       - duration
       title: EditVideoRequest
-    TextToVideoRequest:
-      type: object
-      properties:
-        prompt:
-          type: string
-          description: Text prompt describing the desired video content
-        model:
-          $ref: '#/components/schemas/TextToVideoRequestModel'
-          description: 'Model to use for generation. See [Supported Models](/models) for details.
-
-
-            > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
-
-            '
-        duration:
-          type: integer
-          description: Video duration in seconds. See [Supported Models](/models) for available durations per model.
-        fps:
-          type: integer
-          default: 24
-          description: Frame rate in frames per second. See [Supported Models](/models) for available FPS per model and resolution.
-        resolution:
-          type: string
-          description: Output video resolution. See [Supported Models](/models) for available resolutions per model.
-        generate_audio:
-          type: boolean
-          default: true
-          description: Generate audio for the video. When true, the generated video will include AI-generated audio matching the scene. When false, only silent video is generated.
-        camera_motion:
-          $ref: '#/components/schemas/TextToVideoRequestCameraMotion'
-          description: Apply camera motion effects to the generated video.
-      required:
-      - prompt
-      - model
-      - duration
-      - resolution
-      title: TextToVideoRequest
-    ExtendVideoRequest:
-      type: object
-      properties:
-        video_uri:
-          type: string
-          description: 'Input video for extending. See [Input Formats](/input-formats#video-input) for supported formats and codecs.
-
-
-            - Supported aspect ratios: 16:9 and 9:16
-
-            - Maximum resolution: 3840x2160 (4K)
-
-            - Minimum frame count: 73 (around 3 seconds at 24fps)
-
-
-            The output video preserves the input video''s resolution.
-
-            '
-        prompt:
-          type: string
-          description: 'Description of what should happen in the extended portion of the video.
-
-            '
-        duration:
-          type: number
-          format: double
-          description: 'Duration in seconds to extend the video. Minimum 2 seconds, maximum 20 seconds (480 frames at 24fps).
-
-            '
-        mode:
-          $ref: '#/components/schemas/ExtendVideoRequestMode'
-          description: 'Where to extend the video:
-
-            - `end` (default): Extends the video at the end.
-
-            - `start`: Extends the video at the beginning.
-
-            '
-        model:
-          $ref: '#/components/schemas/ExtendVideoRequestModel'
-          description: 'Model to use for video generation.
-
-
-            > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
-
-            '
-        context:
-          type: number
-          format: double
-          description: '**Advanced parameter:** Number of seconds from the input video to use as context for the extension (maximum 20 seconds).
-
-
-            The model uses context frames from the input video to generate a more coherent extension.
-
-            The sum of `context` + `duration` (converted to frames using the input video''s FPS) cannot exceed 505 frames (~21 seconds at 24fps). For higher-FPS inputs, the maximum total duration in seconds will be proportionally lower; for lower-FPS inputs, it will be proportionally higher.
-
-
-            If not provided, defaults to maximize available context within the 505 frame limit while respecting the 20-second cap.
-
-            '
-      required:
-      - video_uri
-      - duration
-      title: ExtendVideoRequest
-    AudioToVideoRequestResolution:
-      type: string
-      enum:
-      - 1920x1080
-      - 1080x1920
-      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input image orientation — portrait images produce 1080x1920 video, landscape images produce 1920x1080 video. If no image is provided, defaults to 1920x1080.
-
-        '
-      title: AudioToVideoRequestResolution
-    AudioToVideoRequestModel:
-      type: string
-      enum:
-      - ltx-2-pro
-      - ltx-2-3-pro
-      default: ltx-2-3-pro
-      description: 'Model to use for video generation.
-
-
-        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
-
-        '
-      title: AudioToVideoRequestModel
-    ImageToVideoRequestCameraMotion:
-      type: string
-      enum:
-      - dolly_in
-      - dolly_out
-      - dolly_left
-      - dolly_right
-      - jib_up
-      - jib_down
-      - static
-      - focus_shift
-      description: Apply camera motion effects to the generated video.
-      title: ImageToVideoRequestCameraMotion
-    ErrorError:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Error type for programmatic handling
-        message:
-          type: string
-          description: Human-readable error description
-      required:
-      - type
-      - message
-      title: ErrorError
-    ExtendVideoRequestMode:
-      type: string
-      enum:
-      - start
-      - end
-      default: end
-      description: 'Where to extend the video:
-
-        - `end` (default): Extends the video at the end.
-
-        - `start`: Extends the video at the beginning.
-
-        '
-      title: ExtendVideoRequestMode
-    AudioToVideoRequest:
-      type: object
-      properties:
-        audio_uri:
-          type: string
-          description: 'Audio file to be used as the soundtrack for the video. Duration must be between 2 and 20 seconds.
-
-            See [Input Formats](/input-formats#audio-input) for supported formats and size limits.
-
-            '
-        image_uri:
-          type: string
-          description: Input image to be used as the first frame of the video. Required if prompt is not provided. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
-        prompt:
-          type: string
-          description: Text description of how the video should be generated. Required if image_uri is not provided. Can be empty string when image_uri is provided. If image_uri is provided, this describes how the image should be animated. If no image_uri is provided, this describes the video content.
-        resolution:
-          $ref: '#/components/schemas/AudioToVideoRequestResolution'
-          description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input image orientation — portrait images produce 1080x1920 video, landscape images produce 1920x1080 video. If no image is provided, defaults to 1920x1080.
-
-            '
-        guidance_scale:
-          type: number
-          format: double
-          description: Optional guidance scale (also known as CFG) for video generation. Higher values make the output more closely follow the prompt but may reduce quality. Defaults to 5 for text-to-video, or 9 when providing an image.
-        model:
-          $ref: '#/components/schemas/AudioToVideoRequestModel'
-          description: 'Model to use for video generation.
-
-
-            > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
-
-            '
-      required:
-      - audio_uri
-      title: AudioToVideoRequest
-    EditVideoRequestResolution:
-      type: string
-      enum:
-      - 1920x1080
-      - 1080x1920
-      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input video orientation — portrait videos produce 1080x1920 output, landscape videos produce 1920x1080 output.
-
-        '
-      title: EditVideoRequestResolution
     ImageToVideoRequest:
       type: object
       properties:
@@ -733,31 +687,42 @@ components:
       - duration
       - resolution
       title: ImageToVideoRequest
-    Error:
+    AudioToVideoRequest:
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/ErrorType'
-          description: Response type indicator
-        error:
-          $ref: '#/components/schemas/ErrorError'
+        audio_uri:
+          type: string
+          description: 'Audio file to be used as the soundtrack for the video. Duration must be between 2 and 20 seconds.
+
+            See [Input Formats](/input-formats#audio-input) for supported formats and size limits.
+
+            '
+        image_uri:
+          type: string
+          description: Input image to be used as the first frame of the video. Required if prompt is not provided. See [Input Formats](/input-formats#image-input) for supported formats and size limits.
+        prompt:
+          type: string
+          description: Text description of how the video should be generated. Required if image_uri is not provided. Can be empty string when image_uri is provided. If image_uri is provided, this describes how the image should be animated. If no image_uri is provided, this describes the video content.
+        resolution:
+          $ref: '#/components/schemas/AudioToVideoRequestResolution'
+          description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input image orientation — portrait images produce 1080x1920 video, landscape images produce 1920x1080 video. If no image is provided, defaults to 1920x1080.
+
+            '
+        guidance_scale:
+          type: number
+          format: double
+          description: Optional guidance scale (also known as CFG) for video generation. Higher values make the output more closely follow the prompt but may reduce quality. Defaults to 5 for text-to-video, or 9 when providing an image.
+        model:
+          $ref: '#/components/schemas/AudioToVideoRequestModel'
+          description: 'Model to use for video generation.
+
+
+            > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+
+            '
       required:
-      - type
-      - error
-      title: Error
-    ExtendVideoRequestModel:
-      type: string
-      enum:
-      - ltx-2-pro
-      - ltx-2-3-pro
-      default: ltx-2-3-pro
-      description: 'Model to use for video generation.
-
-
-        > **Deprecated:** `ltx-2-pro` is deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
-
-        '
-      title: ExtendVideoRequestModel
+      - audio_uri
+      title: AudioToVideoRequest
     EditVideoRequestMode:
       type: string
       enum:
@@ -778,20 +743,55 @@ components:
 
         '
       title: EditVideoRequestMode
-    ImageToVideoRequestModel:
+    ExtendVideoRequestMode:
       type: string
       enum:
-      - ltx-2-fast
-      - ltx-2-pro
-      - ltx-2-3-fast
-      - ltx-2-3-pro
-      description: 'Model to use for generation. See [Supported Models](/models) for details.
+      - start
+      - end
+      default: end
+      description: 'Where to extend the video:
 
+        - `end` (default): Extends the video at the end.
 
-        > **Deprecated:** `ltx-2-fast` and `ltx-2-pro` are deprecated. See the [LTX-2 Deprecation Notice](/ltx-2-deprecation).
+        - `start`: Extends the video at the beginning.
 
         '
-      title: ImageToVideoRequestModel
+      title: ExtendVideoRequestMode
+    EditVideoRequestResolution:
+      type: string
+      enum:
+      - 1920x1080
+      - 1080x1920
+      description: 'The resolution of the generated video in WIDTHxHEIGHT format. When omitted, the resolution is automatically determined based on the input video orientation — portrait videos produce 1080x1920 output, landscape videos produce 1920x1080 output.
+
+        '
+      title: EditVideoRequestResolution
+    ImageToVideoRequestCameraMotion:
+      type: string
+      enum:
+      - dolly_in
+      - dolly_out
+      - dolly_left
+      - dolly_right
+      - jib_up
+      - jib_down
+      - static
+      - focus_shift
+      description: Apply camera motion effects to the generated video.
+      title: ImageToVideoRequestCameraMotion
+    ErrorError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error type for programmatic handling
+        message:
+          type: string
+          description: Human-readable error description
+      required:
+      - type
+      - message
+      title: ErrorError
     ErrorType:
       type: string
       enum:
