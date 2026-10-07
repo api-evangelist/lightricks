@@ -119,6 +119,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Plans
+  url: plans/lightricks-plans-pricing.yml
 - type: AgenticAccess
   url: agentic-access/lightricks-agentic-access.yml
 - type: TrustCenter
