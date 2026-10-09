@@ -1,0 +1,181 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://docs.ltx.io/pricing
+sources:
+- https://docs.ltx.io/pricing
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: usage-other
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+published: true
+note: Per-second-of-video billing across models/resolutions; enterprise plans via sales. Prepaid credit
+  holds mentioned.
+plan_count: 11
+currency: USD
+plans:
+- name: Text-to-Video — ltx-2-5-fast 1280x720/720x1280
+  price_text: $0.09
+  price: 0.09
+  currency: USD
+  period: per-use
+  unit: per second of output video
+- name: Text-to-Video — ltx-2-5-pro 3840x2160/2160x3840
+  price_text: $0.39
+  price: 0.39
+  currency: USD
+  period: per-use
+  unit: per second of output video
+- name: Text-to-Video — ltx-2-3-fast 1280x720/720x1280
+  price_text: $0.03
+  price: 0.03
+  currency: USD
+  period: per-use
+  unit: per second of output video
+- name: Image-to-Video — ltx-2-3-pro 2560x1440/1440x2560
+  price_text: $0.16
+  price: 0.16
+  currency: USD
+  period: per-use
+  unit: per second of output video
+- name: Audio-to-Video — ltx-2-3-pro 1920x1080/1080x1920
+  price_text: $0.10
+  price: 0.1
+  currency: USD
+  period: per-use
+  unit: per second of input audio
+- name: Retake (Video Editing) — ltx-2-3-pro 1080p
+  price_text: $0.10
+  price: 0.1
+  currency: USD
+  period: per-use
+  unit: per second of input video
+- name: Extend — ltx-2-3-pro 1080p
+  price_text: $0.10
+  price: 0.1
+  currency: USD
+  period: per-use
+  unit: per second, capped at 505 billed frames
+- name: HDR Upscale — up to 1080p
+  price_text: $0.20
+  price: 0.2
+  currency: USD
+  period: per-use
+  unit: per second of input video
+- name: HDR Upscale — up to 4K
+  price_text: $0.80
+  price: 0.8
+  currency: USD
+  period: per-use
+  unit: per second of input video
+- name: Video Reframe — 720p output
+  price_text: $0.10
+  price: 0.1
+  currency: USD
+  period: per-use
+  unit: per second of input video
+- name: Enterprise
+  price_text: contact our sales team
+  period: none
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - subscription
+  units:
+  - compute
+  plans:
+  - name: Text-to-Video — ltx-2-5-fast 1280x720/720x1280
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Text-to-Video — ltx-2-5-pro 3840x2160/2160x3840
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Text-to-Video — ltx-2-3-fast 1280x720/720x1280
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Image-to-Video — ltx-2-3-pro 2560x1440/1440x2560
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Audio-to-Video — ltx-2-3-pro 1920x1080/1080x1920
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Retake (Video Editing) — ltx-2-3-pro 1080p
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Extend — ltx-2-3-pro 1080p
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: HDR Upscale — up to 1080p
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: HDR Upscale — up to 4K
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Video Reframe — 720p output
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
