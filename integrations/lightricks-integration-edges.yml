@@ -29,6 +29,42 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-agent-skills.py
   first_seen: '2026-10-20'
+- partner_name: Hugging Face (hugging-face-hub)
+  partner: hugging-face
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: hugging-face-hub
+  evidence: https://huggingface.co/Lightricks
+  mirror_of: hugging-face/integrations/hugging-face-integration-edges.yml
+  apps:
+  - Lightricks/Canny-Control-Dataset
+  - Lightricks/Cakeify-Dataset
+  - Lightricks/Squish-Dataset
+  - Lightricks/LTX-2.5
+  - Lightricks/LTX-2.3
+  - Lightricks/LTX-Video
+  - Lightricks/LTX-2.3-fp8
+  - Lightricks/LTX-2
+  - Lightricks/LTX-2.5-Diffusers
+  - Lightricks/LTX-2.3-nvfp4
+  - Lightricks/LTX-2.5-22b-IC-LoRA-Refine-Details
+  - Lightricks/ltx-video-distilled
+  - Lightricks/LTX-2-3
+  - Lightricks/ltx-2-distilled
+  - Lightricks/ltx-2
+  - Lightricks/ltx-video-iclora
+  - Lightricks/LTX-2-3-hdr
+  - Lightricks/ltx-2-3-spatial-upscaler
+  listing_count: 3
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Hugging Face Hub datasets
+  badges:
+  - Verified publisher (Hugging Face verified organisation)
 generated: '2026-10-20'
 method: searched
 source:
@@ -40,3 +76,4 @@ checked:
 - https://officialskills.sh/sitemap.xml
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
+- hugging-face/integrations/hugging-face-integration-edges.yml
