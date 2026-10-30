@@ -64,50 +64,140 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Lightricks is a Jerusalem-based creative-technology company behind the Facetune, Photoleap and Videoleap
-consumer apps and the LTX generative video platform. Its developer-facing product is the **LTX API** at
-`api.ltx.video` — a video-generation API covering text-to-video, image-to-video, audio-to-video, retake,
-extend, HDR upscale and reframe, offered in synchronous (v1) and asynchronous job-based (v2) forms and
-billed per second of output. Lightricks also publishes the LTX-2 and LTX-Video open-weight models, a
-ComfyUI node set and a LoRA trainer on GitHub under Apache-2.0.
+Lightricks is a Jerusalem-based creative-technology company behind the Facetune, Photoleap and Videoleap consumer apps and the LTX generative video platform. Its developer-facing product is the LTX API at api.ltx.video, a video-generation API covering text-to-video, image-to-video, audio-to-video, retake, extend, HDR upscale and reframe, offered in synchronous (v1) and asynchronous job-based (v2) forms and billed per second of output. Lightricks also publishes the LTX-2 and LTX-Video open-weight models, a ComfyUI node set and a LoRA trainer on GitHub under Apache-2.0.
 
-- Website: https://www.lightricks.com/
-- Developer docs: https://docs.ltx.io/
-- API reference: https://docs.ltx.io/api-documentation/api-reference
-- Console / sign up: https://console.ltx.io/
-- Status: https://status.ltx.video/
-- Trust center: https://trust.lightricks.com/
-- GitHub: https://github.com/Lightricks
+**Areas:** Company · Consumer · Artificial Intelligence · Generative AI · Video · Video Generation · Media · Machine Learning · Creative Tools
 
-Backed by: insight-partners
+## Lightricks on APIs.io
 
-## Artifacts
+Everything profiled for Lightricks is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lightricks/](https://apis.io/providers/lightricks/)** — or go straight to one of the APIs or properties below.
 
-| Directory | What it holds |
+### APIs (3)
+
+- [Lightricks Async Video Generation API](https://apis.io/apis/lightricks/lightricks-asyncvideogeneration-api/) — The asyncVideoGeneration API from Lightricks — 8 operation(s) for asyncvideogeneration.
+- [Lightricks Upload API](https://apis.io/apis/lightricks/lightricks-upload-api/) — The upload API from Lightricks — 1 operation(s) for upload.
+- [Lightricks Video Generation API](https://apis.io/apis/lightricks/lightricks-video-generation-api/) — The Video Generation API from Lightricks — 5 operation(s) for video generation.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [ltx-docs](https://apis.io/servers/lightricks/ltx-docs/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Lightricks Agentic Access](https://apis.io/agentic-access/lightricks/lightricks-agentic-access/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [API Reference asyncVideoGeneration API](https://apis.io/collections/lightricks/open-lightricks-asyncvideogeneration-api/)
+- [API Reference asyncVideoGeneration upload API](https://apis.io/collections/lightricks/open-lightricks-upload-api/)
+- [API Reference asyncVideoGeneration videoGeneration API](https://apis.io/collections/lightricks/open-lightricks-videogeneration-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Lightricks Ltx Overlay](https://apis.io/overlays/lightricks/lightricks-ltx-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lightricks Authentication](https://apis.io/security/lightricks/lightricks-authentication/)
+- [Lightricks Domain Security](https://apis.io/security/lightricks/lightricks-domain-security/)
+- [Lightricks Trust Center](https://apis.io/security/lightricks/lightricks-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Lightricks Plans Pricing](https://apis.io/plans/lightricks/lightricks-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Lightricks Rate Limits](https://apis.io/rate-limits/lightricks/lightricks-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.lightricks.com/)
+- [Documentation](https://docs.ltx.io/welcome)
+- [Getting started](https://docs.ltx.io/quickstart)
+- [API reference](https://docs.ltx.io/api-documentation/api-reference)
+- [Pricing](https://docs.ltx.io/pricing)
+- [Sign up](https://console.ltx.io/)
+- [Support](https://help.ltx.io/hc/en-us)
+- [Changelog](https://ltx.io/changelog)
+- [Blog](https://ltx.io/blog)
+- [Compliance](https://trust.lightricks.com/)
+- [Terms of service](https://static.lightricks.com/legal/terms-of-use.pdf)
+- [Privacy policy](https://static.lightricks.com/legal/privacy-policy.pdf)
+- [GitHub](https://github.com/Lightricks)
+- [Status](https://status.ltx.video/)
+
+## API Evangelist rating
+
+**Kin Score 58.8** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| `openapi/` | The provider's OpenAPI 3.1 spec, harvested verbatim (14 operations, 33 schemas) |
-| `overlays/` | API Evangelist Overlay 1.0.0 of our enhancements over the harvested spec |
-| `llms/` | The provider's published `llms.txt`, verbatim |
-| `well-known/` | `/.well-known/` probe index plus the RFC 9727 API catalog linkset |
-| `mcp/` | The provider's live remote MCP documentation server |
-| `packages/` | First-party PyPI packages and open-source repositories |
-| `authentication/` | Auth profile derived from the spec's security schemes |
-| `conventions/` | Cross-cutting runtime semantics (auth, async polling, tracing, errors, rate limits) |
-| `errors/` | Error-type registry from the docs plus problem types derived from the spec |
-| `rate-limits/` | Concurrency and request limits, and their 429 signaling |
-| `lifecycle/` | Versioning, model deprecation policy, status page, retention windows |
-| `changelog/` | Dated LTX model and ComfyUI plugin release history |
-| `conformance/` | Standards conformance, asserted and derived, plus the published compliance program |
-| `security/` | Domain security probe and the trust center with named certifications |
-| `data-model/` | Entity graph derived from the spec (Job, JobResult, Upload, …) |
-| `agentic-access/` | Recommended `x-agentic-access` execution contracts per operation |
-| `skills/` | Packaged Agent Skills for the marquee LTX flows |
+| Discoverability | 71.7 |
+| Contract quality | 48.4 |
+| Contract governance | 4.5 |
+| Operational transparency | 63.2 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 78.9 |
 
-## Notes
+**Agent readiness 34.2** — agent-ready
 
-- **No event surface.** LTX has no webhooks, streaming or AsyncAPI — job completion is discovered by
-  polling `GET /v2/{endpoint}/{id}`. No AsyncAPI artifact is fabricated.
-- **No OAuth.** Authentication is a bearer API key only, so there is no `scopes/` artifact.
-- **No idempotency contract.** LTX documents no idempotency key; retried submits are new billable jobs.
-- **No sandbox, CLI or embeddable components** are published, so those artifacts are absent by design.
-- **No `security.txt` or vulnerability-disclosure program** was verifiable on any Lightricks/LTX host.
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 34.5** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lightricks/](https://apis.io/providers/lightricks/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Lightricks: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lightricks/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
